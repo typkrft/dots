@@ -1,0 +1,311 @@
+# vim: ft=yaml.ansible:
+---
+- hosts: "{{ target | default(fedora) }}"
+  vars_prompt:
+    - name: ssh_port
+      prompt: What SSH Port Would you like to use?
+      private: no
+
+    # - name: banner
+      # prompt: Paste your Banner
+      # confirm: yes
+
+    - name: resize
+      prompt: Resize Fedora Root Volume [y/N]?
+      default: "n"
+      private: no
+
+    - name: run_docker
+      prompt: Run Docker Setup?
+      private: no
+      default: n
+
+    - name: user_name
+      prompt: Username
+      private: no
+
+    - name: hostname
+      prompt: hostname
+      private: no
+      default: "n"
+
+    - name: swarm_token
+      prompt: Swarm Token
+      default: "n"
+      private: no
+
+    - name: turn_off_resolve
+      prompt: Turn off resolved
+      private: no
+      default: "n"
+
+  tasks:
+    # FIXME:
+    - name: Setup DNF
+      become: yes
+      shell: |
+        echo "defaultyes=True" >> /etc/dnf/dnf.conf
+        echo "fastestmirror=True" >> /etc/dnf/dnf.conf
+        echo "max_parallel_downloads=20" >> /etc/dnf/dnf.conf
+
+    - name: Add Neovim Nightly Repo
+      become: yes
+      shell: |
+        yes | sudo dnf copr enable agriffis/neovim-nightly
+
+
+    - name: Update DNF Cache
+      become: yes
+      dnf:
+        update_cache: yes
+
+    - name: Install Base Packages
+      become: yes
+      dnf:
+        name:
+          - zsh
+          - bind-utils
+          - trash-cli
+          - starship
+          - ncurses-devel
+          - ripgrep
+          - lvm2
+          - nfs-utils
+          - sqlite-devel
+          - firewalld
+          - policycoreutils-python-utils
+          - neovim
+          - navi
+          - exa
+          # - lsd
+          - sqlite
+          - libstdc++-static
+          - git
+          - subversion
+          - qemu-guest-agent
+          - gcc-c++
+          - fzf
+          - fd-find
+        state: latest
+
+    - name: Upgrade Pkgs
+      become: yes
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Auto Remove Unused Packages
+      become: yes
+      dnf:
+        autoremove: yes
+
+    - name: Change Shell to ZSH
+      become: yes
+      user:
+        name: "{{ target_user | default(lookup('env','USER')) }}"
+        shell: /usr/bin/zsh
+
+    - name: Create .config paths
+      shell: mkdir -p ~/.config/{starship,navi,bin,completions}
+
+    - name: Download Starship Config
+      get_url:
+        url: "https://raw.githubusercontent.com/typkrft/dots/main/starship/starship.toml"
+        dest: ~/.config/starship/starship.toml
+
+    - name: Anitbody Check
+      shell: which antibody > /dev/null 2>&1; echo $?
+      register: antibody_check
+
+    - name: Install Antibody
+      become: yes
+      shell: curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
+      when: antibody_check.stdout != '0'
+
+    - name: Setup Docker Repo
+      become: yes
+      shell: dnf -y install dnf-plugins-core && sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo && dnf update
+
+    - name: Install Docker
+      become: yes
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose
+      when: run_docker == 'y'
+
+    - name: Check Docker Service
+      become: yes
+      shell: sudo systemctl is-active --quiet docker; echo $?
+      register: docker_service_check
+      
+
+    - name: Enable Docker Service
+      become: yes
+      command: systemctl enable docker --now
+      when: (docker_service_check.stdout != '0')
+
+    - name: Get Latest Lazy Docker High Contrast
+      uri:
+        url: https://api.github.com/repos/ThomasLachaux/lazydocker-high-contrast/releases/latest
+        return_content: true
+      register: lazydocker_json
+      when: run_docker == 'y'
+
+    - name: Install Latest Lazy Docker High Contrast
+      get_url:
+        url: "{{ lazydocker_json.json.assets.0.browser_download_url }}"
+        dest: ~/.config/bin/ldock
+      when: run_docker == 'y'
+
+    - name: Chmod Lazy Docker Binary
+      shell: |
+        chmod +x ~/.config/bin/ldock
+      when: run_docker == 'y'
+
+    - name: Check if zshrc exists
+      shell: |
+        test -f ~/.zshrc && echo 0 || echo 1
+      register: zshrc_check
+
+    - name: Download Minimal ZSHRC
+      get_url:
+        url: https://raw.githubusercontent.com/typkrft/dots/main/zsh/zshrc
+        dest: ~/.zshrc
+      when: zshrc_check.stdout != '0'
+
+    - name: Navi Config Check
+      shell: |
+        test -f ~/.config/navi/navi.cheat && echo 0 || echo 1
+      register: navi_config_check
+
+    - name: Download Navi Config
+      get_url:
+        url: https://raw.githubusercontent.com/typkrft/dots/main/navi/config.yaml
+        dest: ~/.config/navi/config.yaml
+      when: navi_config_check.stdout != '0'
+
+    # - name: Navi Cheat Check
+    #   shell: |
+    #     test -f ~/.config/navi/navi.cheat && echo 0 || echo 1
+    #   register: navi_cheat_check
+
+    - name: Download Navi Cheat
+      get_url:
+        url: https://raw.githubusercontent.com/typkrft/dots/main/navi/navi.cheat
+        dest: ~/.config/navi/navi.cheat
+      # when: navi_cheat_check.stdout != '0'
+
+    - name: Source .zshrc
+      shell: . $HOME/.zshrc && build-fzf-tab-module
+      args:
+        executable: /usr/bin/zsh
+
+    - name: Download Nvim Conf
+      shell: svn export https://github.com/typkrft/dots.git/trunk/nvim ~/.config/nvim --force
+
+    - name: Check if sshd_config.d/custom.conf exists
+      become: yes
+      shell: |
+        test -f /etc/ssh/sshd_config.d/custom.conf && echo 0 || echo 1
+      register: custom_conf_check
+
+    - name: Create sshd_config.d/custom.conf
+      become: yes
+      shell: |
+        touch /etc/ssh/sshd_config.d/custom.conf
+      when: custom_conf_check.stdout != '0'
+
+    - name: Config Port
+      become: yes
+      shell: |
+        echo 'Port {{ ssh_port }}' >> /etc/ssh/sshd_config.d/custom.conf
+      when: custom_conf_check.stdout != '0'
+
+    - name: Turn Off Pass Auth
+      become: yes
+      shell: |
+        echo 'PasswordAuthentication no' >> /etc/ssh/sshd_config.d/custom.conf
+      when: custom_conf_check.stdout != '0'
+
+    - name: Turn SSH Banner On
+      become: yes
+      shell: |
+        touch /etc/ssh/sshd_config.d/Banner
+        echo 'Banner /etc/ssh/sshd_config.d/banner' >> /etc/ssh/sshd_config.d/custom.conf 
+      when: custom_conf_check.stdout != '0'
+
+    - name: Resize Fedora LVM to use all available space
+      become: yes
+      shell: |
+        lvextend -l 100%FREE /dev/mapper/fedora_fedora-root
+        xfs_growfs /dev/mapper/fedora_fedora-root
+      when: resize == "y"
+
+    - name: Enable firewalld
+      become: yes
+      shell: |
+        systemctl enable firewalld
+        systemctl start firewalld
+
+      # FIXME:
+    - name: Manage SELinux SSH Ports
+      become: yes
+      shell: |
+        semanage port -a -t ssh_port_t -p tcp {{ ssh_port }}
+        semanage port -a -t http_port_t -p tcp 2377
+        semanage port -a -t http_port_t -p tcp 7946
+        semanage port -a -t http_port_t -p udp 7946
+        semanage port -a -t http_port_t -p udp 4789
+      register: semange_result
+      ignore_errors: yes
+      # failed_when:
+        # - '"already defined" not in semange_result.stderr or "" not in semange_result.stderr'
+
+    - name: Open Docker Swarm Ports
+      become: yes
+      shell: |
+        firewall-cmd --add-port=2377/tcp
+        firewall-cmd --add-port=7946/tcp
+        firewall-cmd --add-port=7946/udp
+        firewall-cmd --add-port=4789/udp
+        firewall-cmd --add-port={{ ssh_port }}/tcp
+        firewall-cmd --runtime-to-permanent
+        firewall-cmd --reload
+        firewall-cmd --remove-service=ssh --permanent
+        firewall-cmd --reload
+
+    - name: Set Hostname
+      become: yes
+      shell: |
+        hostnamectl set-hostname --static {{ hostname }}
+      when: hostname != "n"
+
+    - name: Join Docker Swarm
+      become: yes
+      shell: |
+        docker swarm join --token {{ swarm_token }} 10.10.10.4:2377
+      when: swarm_token != "n"
+
+    - name: Restart SSHD 
+      become: yes
+      shell: |
+        systemctl restart sshd.service
+
+    - name: Turn Off Resolved 
+      become: yes
+      shell: |
+        systemctl disable systemctl-resolved --now
+      when: turn_off_resolve == "y"
+
+    # - name: Install Docker Completions
+    #   get_url:
+    #     url: https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
+    #     dest: ~/.config/completions/docker
+    #
+    # - name: Install Docker Compose Completions
+    #   get_url:
+    #     url: https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/zsh/_docker-compose
+    #     dest: ~/.config/completions/docker-compose

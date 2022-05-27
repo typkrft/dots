@@ -1,0 +1,48 @@
+# Rose Pine Moon themed dark color settings for colorls
+#
+# Main Colors
+unrecognized_file: '#f6c177' # Gold
+recognized_file: '#e0def4' # Text
+executable_file: '#9ccfd8' # Foam
+dir: '#ea9a97' # Rose
+
+# Link
+dead_link: '#eb6f92' # Love
+link: '#9ccfd8' # Foam
+
+# Special Files
+socket: '#3e8fb0' # Pine
+blockdev: '#3e8fb0' # Pine
+chardev: '#3e8fb0' # Pine
+
+# Access Modes
+write: '#ea9a97' # Rose
+read: '#c4a7e7' # Iris
+exec: '#3e8fb0' # Foam
+no_access: '#eb6f92' # Love
+
+# Age
+hour_old: '#908caa' # Subtle
+day_old: '#6e6a86' # Muted
+no_modifier: '#393552' # Current Line
+
+# File Size
+file_large: '#eb6f92' # Love
+file_medium: '#f6c177' # Gold
+file_small: '#ea9a97' # Rose
+
+# Random
+report: '#ea9a97' # Rose
+user: '#9ccfd8' # Foam
+tree: '#44475a' # Current Line
+empty: '#6e6a86' # Muted
+error: '#eb6f92' # Love
+normal: '#e0def4' # Text
+
+# Git
+addition: '#9ccfd8' # Foam
+modification: '#c4a7e7' # Iris
+deletion: '#eb6f92' # Love
+untracked: '#f6c177' # Gold
+unchanged: '#3e8fb0' # Pine
+

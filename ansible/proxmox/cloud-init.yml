@@ -1,0 +1,108 @@
+---
+- hosts: localhost
+  vars_prompt:
+
+    - name: pve_server_name
+      private: no
+      prompt: Name of Server in Hosts File
+
+    - name: new_machine_name
+      private: no
+      prompt: "What would you like to name the new machine? No Underscores"
+
+    - name: new_machine_id
+      private: no
+      prompt: "Please enter the VMID for the new machine"
+
+    - name: new_user_name
+      private: no
+      prompt: "Please enter the Username for the new machine"
+
+    - name: new_user_password
+      private: no
+      prompt: "Please enter the Password for the new machine"
+
+    - name: ssh_passphrase
+      private: no
+      prompt: "Please create a ssh key passphrase"
+
+    - name: ip_addr
+      prompt: Type a new IP or press enter for DHCP
+      default: dhcp
+      private: no
+
+    - name: vlan_tag
+      prompt: Enter a VLAN tag or press enter to continue without one
+      private: no
+
+    - name: add_space
+      prompt: Add space to the root filesystem in Gigabytes or enter for none
+      private: no
+
+    - name: clone_vmid
+      prompt: Name or VMID of template to clone from
+      private: no
+
+    - name: memory
+      prompt: Amount of memory
+      private: no
+
+  tasks:
+    - name: create ssh key
+      openssh_keypair:
+        path: "~/.ssh/id_{{ new_machine_name|lower }}"
+        type: ed25519
+        state: present
+        passphrase: "{{ ssh_passphrase }}"
+        force: no
+      register: ssh_key
+
+    - name: register_data with {{ pve_server_name }}
+      add_host:
+        name: "tmp_host"
+        tmp_ssh_key: "{{ ssh_key }}"
+        tmp_pve_server_name: "{{ pve_server_name }}"
+        tmp_machine_name: "{{ new_machine_name }}"
+        tmp_new_machine_id: "{{ new_machine_id }}"
+        tmp_new_user_name: "{{ new_user_name }}"
+        tmp_new_user_password: "{{ new_user_password }}"
+        tmp_ssh_passphrase: "{{ ssh_passphrase }}"
+        tmp_ip_addr: "{{ ip_addr }}"
+        tmp_vlan_tag: "{{ vlan_tag }}"
+        tmp_add_space: "{{ add_space }}"
+        tmp_clone_vmid: "{{ clone_vmid }}"
+        tmp_memory: "{{ memory }}"
+
+- hosts: "{{ hostvars['tmp_host']['tmp_pve_server_name']}}"
+
+  tasks:
+    - name: Create public key
+      shell: "touch /root/{{ hostvars['tmp_host']['tmp_ssh_key'].filename | regex_search('(?<=ssh\/).*') }}.pub && echo {{ hostvars['tmp_host']['tmp_ssh_key'].public_key }} >> /root/{{ hostvars['tmp_host']['tmp_ssh_key'].filename | regex_search('(?<=ssh\/).*') }}.pub"
+
+    # Use If Specifying clone by name
+    - name: Get Clone ID
+      shell: "qm list | grep -i {{ hostvars['tmp_host']['tmp_clone_vmid'] }} | awk '{print $1}'"
+      register: clone_id
+      when: hostvars['tmp_host']['tmp_clone_vmid'] is not regex("^[0-9]+$")
+
+    - name: Create Clone
+      shell: "qm clone {{ clone_id.stdout | default(hostvars['tmp_host']['tmp_clone_vmid']) }} {{ hostvars['tmp_host']['tmp_new_machine_id'] }} --full true --format qcow2 --name {{ hostvars['tmp_host']['tmp_machine_name'] }} --storage local"
+      register: create_output
+
+    - name: Create Clone Output
+      debug:
+        msg: "{{ create_output.stdout }}"
+
+    - name: Set up Clone
+      shell: "qm set {{ hostvars['tmp_host']['tmp_new_machine_id'] }} --autostart 0 --balloon {{ hostvars['tmp_host']['tmp_memory'] }} --bios ovmf --cipassword '{{ hostvars['tmp_host']['tmp_new_user_password'] }}' --ciuser '{{ hostvars['tmp_host']['tmp_new_user_name'] }}' --cores 4 --efidisk0 local:0 --machine q35 --memory {{ hostvars['tmp_host']['tmp_memory'] }} --onboot 1 --sshkeys /root/{{ hostvars['tmp_host']['tmp_ssh_key'].filename| regex_search('(?<=ssh\/).*') }}.pub --ipconfig0 ip={{ hostvars['tmp_host']['tmp_ip_addr'] }} --agent 1"
+
+    - name: Expand Storage
+      shell: "qm resize {{ hostvars['tmp_host']['tmp_new_machine_id'] }} scsi0 +{{ hostvars['tmp_host']['tmp_add_space'] }}G"
+      when: hostvars['tmp_host']['tmp_add_space'] != ""
+
+    - name: Add VLAN Tag
+      shell: "qm set {{ hostvars['tmp_host']['tmp_new_machine_id'] }} --net0 model=virtio,bridge=vmbr0,tag={{ hostvars['tmp_host']['tmp_vlan_tag'] }}"
+      when: hostvars['tmp_host']['tmp_vlan_tag'] != ""
+
+    - name: Remove Public Key
+      shell: "rm /root/{{ hostvars['tmp_host']['tmp_ssh_key'].filename | regex_search('(?<=ssh\/).*') }}.pub"

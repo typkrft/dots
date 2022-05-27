@@ -1,0 +1,187 @@
+# Z S H R C 
+
+# H I S T O R Y
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory
+setopt HIST_IGNORE_SPACE
+bindkey '^[[A' history-beginning-search-backward
+bindkey '^[[B' history-beginning-search-forward
+
+# Stop Vim Mode
+bindkey -e 
+
+# P A T H S
+## User Binaries
+path=("$HOME/.config/bin" $path)
+if [ $(uname -s) = "Darwin" ]; then
+  path=("/opt/homebrew/bin" $path)
+fi
+export path
+
+# A N T I B O D Y
+source <(antibody init)
+## Plugins
+antibody bundle "
+Aloxaf/fzf-tab
+typkrft/zfm
+hlissner/zsh-autopair
+junegunn/fzf path:shell
+zsh-users/zsh-autosuggestions
+ohmyzsh/ohmyzsh path:lib/history.zsh
+ohmyzsh/ohmyzsh path:plugins/docker kind:fpath
+ohmyzsh/ohmyzsh path:plugins/sudo/sudo.plugin.zsh
+ohmyzsh/ohmyzsh path:plugins/docker-compose kind:fpath
+zdharma-continuum/fast-syntax-highlighting
+"
+
+# A L I A S E S
+## rm -> trash
+if command -v trash &> /dev/null; then alias rm="$(which trash)"; fi
+## exa -> ls
+alias ls="EXA_ICON_SPACING=2 exa --icons -a -G --group-directories-first"
+alias of='nvim $(zfm select --files --multi)'
+
+# E N V  V A R I A B L E S
+export EDITOR="nvim"
+export ZFM_BOOKMARKS_FILE=~/.config/zfm/zfm
+
+# F Z F
+if [[ -f ~/.config/fzf/fzf.sh ]]; then
+  . ~/.config/fzf/fzf.sh 
+fi
+
+if [[ "$TERM_PROGRAM" = "WezTerm" ]]; then
+  wez_ssh() {
+    if [ -n "$2" ]; then
+      if [[ "$2" = "--bash" ]]; then
+        \ssh -t $1 TERM_PROGRAM=$(echo $TERM_PROGRAM) bash -l
+      fi
+    else 
+      ssh -t $1 TERM_PROGRAM=$(echo $TERM_PROGRAM) zsh -l
+    fi
+  }
+  alias ssh=wez_ssh
+fi
+
+# Fzf Tab Conf
+## disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+## set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+## set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+## preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'EXA_ICON_SPACING=2 exa -1 --color=always --icons $realpath'
+## switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+
+# A U T O L S
+auto-ls() {
+  EXA_ICON_SPACING=2 exa --icons -a -G --group-directories-first 
+}
+chpwd_functions=(auto-ls $chpwd_functions)
+
+# C A S E  I N S E N S I T I V E  S U G G E S T I O N S
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# S T A R S H I P
+## Init Starship
+eval "$(starship init zsh)"
+## Prefer Config in it's own folder
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+# N A V I
+eval "$(navi widget zsh)"
+export NAVI_CONFIG="$HOME/.config/navi/config.yaml"
+
+# Z L E  W I D G E T S
+# NOTE: ZLE Widget to move cursor to beginning of the buffer 
+# NOTE: zle -N adds it to zsh as a widget so that it can be bound
+_beginning_of_buffer() {
+  CURSOR=0
+}
+zle -N _beginning_of_buffer
+
+_end_of_buffer() {
+  CURSOR="${#BUFFER}"
+}
+zle -N _end_of_buffer
+
+_copy_buffer() {
+  echo $BUFFER | pbcopy
+}
+zle -N _copy_buffer
+
+_turn_off_syntax_highlighting() {
+  ZSH_HIGHLIGHT_MAXLENGTH=0
+  region_highlight=()
+}
+zle -N _turn_off_syntax_highlighting
+
+_turn_on_syntax_highlighting() {
+  antibody bundle zdharma-continuum/fast-syntax-highlighting
+}
+zle -N _turn_on_syntax_highlighting
+
+_open_editor() {
+  $EDITOR +TreeToggle
+}
+zle -N _open_editor
+
+
+# Change/Turn of Paste Highlighting
+#zle_highlight=('paste:fg=black,bg=blue,underline')
+zle_highlight=(paste:none)
+
+
+# B I N D I N G S
+## up 
+bindkey '\e[A' history-beginning-search-backward
+## down
+bindkey '\e[B' history-beginning-search-forward
+## alt-right
+bindkey ";3C" forward-word
+## alt-left
+bindkey ";3D" backward-word
+## alt-backspace
+bindkey ";^?" backward-delete-word
+
+# NOTE: Requires Terminal App Mappings eg: kitty.conf
+## cmd+up
+bindkey "☔︎" _beginning_of_buffer
+## cmd+down
+bindkey "☂︎" _end_of_buffer
+## cmd-left
+bindkey "☀︎" beginning-of-line
+## cmd-right
+bindkey "☼" end-of-line
+## cmd-backspace
+bindkey "☽" backward-kill-line
+## cmd-z
+bindkey "☾" undo
+## cmd+shift-z
+bindkey "☁︎" redo
+## cmd+shift-c 
+if [ $(uname -s) = "Darwin" ]; then 
+  bindkey "☃︎" _copy_buffer
+fi 
+## cmd-|
+bindkey "2;9u" _turn_off_syntax_highlighting 
+## cmd+shift-|
+bindkey "2;10u" _turn_on_syntax_highlighting 
+## cmd+shift+space 
+bindkey ";10u" _open_editor
+# L O A D  A D D I T I O N A L  Z S H  C O N F I G S  
+if [ -d ~/.config/zsh ]; then
+  for file in ~/.config/zsh/*; do 
+    source "$file"
+  done
+fi
+
+# C O M P L E T I O N S
+## NOTE: This has to be initialized after all completion settings
+autoload -Uz compinit
+compinit
+

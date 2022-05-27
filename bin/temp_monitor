@@ -1,0 +1,8 @@
+#!/bin/bash
+
+NUM_DRIVES=$(ls /dev | grep da | sed -e 's/.*p.*//g' | grep -c d)
+# echo $NUM_DRIVES
+
+for i in $(seq 1 $NUM_DRIVES); do
+  smartctl -a /dev/da$i | awk '/Temperature_Celsius/{print $0}' | awk '{print $10 "C"}'
+done

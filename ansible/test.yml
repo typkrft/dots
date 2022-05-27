@@ -1,0 +1,17 @@
+- hosts: localhost
+  vars_prompt: 
+    - name: test_var 
+      prompt: anything goes 
+
+  tasks:
+    - name: Register test_var with host 
+      add_host:
+        name: "tmp_host"
+        test_var_new: "{{ test_var }}"
+
+- hosts: "{{ hostvars['tmp_host']['test_var_new'] }}"
+    
+  tasks:
+    - name: test ping 
+      ping:
+

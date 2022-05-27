@@ -1,0 +1,49 @@
+---
+- hosts: local
+
+  vars_prompt:
+    - name: theme
+      prompt: Which theme? dracula, rose_pine
+      private: no
+      default: dracula
+
+  tasks:
+    
+    - name: Clone Dotfile Repo 
+      git:
+        repo: 'https://github.com/typkrft/dots.git'
+        dest: ~/.dots
+        update: yes
+        recursive: yes
+
+    - name: Create Symlinks
+      file:
+        src: "~/.dots/{{ item.src }}"
+        dest: "{{ item.path }}{{ item.dst }}"
+        state: link
+        force: yes 
+      with_items:
+        - {path: "~/.config/", src: "ansible", dst: "ansible"}
+        - {path: "~/.config/", src: "bat", dst: "bat"}
+        - {path: "~/.config/", src: "bin", dst: "bin"}
+        - {path: "~/.config/", src: "colorls/dark_colors.{{ theme }}.yaml", dst: "colorls/dark_colors.yaml"}
+        - {path: "~/.config/", src: "homebrew", dst: "homebrew"}
+        - {path: "~/.config/", src: "kitty", dst: "kitty"}
+        - {path: "~/.config/", src: "macos", dst: "macos"}
+        - {path: "~/.config/", src: "navi", dst: "navi"}
+        - {path: "~/.config/", src: "neofetch", dst: "neofetch"}
+        - {path: "~/.config/", src: "nvim", dst: "nvim"}
+        - {path: "~/.config/", src: "ranger", dst: "ranger"}
+        - {path: "~/.config/", src: "sketchybar", dst: "sketchybar"}
+        - {path: "~/.config/", src: "skhd", dst: "skhd"}
+        - {path: "~/.config/", src: "starship", dst: "starship"}
+        - {path: "~/.config/", src: "fzf/{{ theme }}", dst: "fzf/fzf.sh"}
+        - {path: "~/.config/", src: "wal", dst: "wal"}
+        - {path: "~/.config/", src: "wallpapers", dst: "wallpapers"}
+        - {path: "~/.config/", src: "watchman", dst: "watchman"}
+        - {path: "~/.config/", src: "wezterm", dst: "wezterm"}
+        - {path: "~/", src: "xresources/.Xresources.{{ theme }}", dst: ".Xresources"}
+        - {path: "~/.config/", src: "yabai", dst: "yabai"}
+        - {path: "~/.config/", src: "zellij", dst: "zellij"}
+        - {path: "~/.config/", src: "zsh/custom.zsh", dst: "zsh/custom.zsh"}
+        - {path: "~/", src: "zsh/zshrc", dst: ".zshrc"}

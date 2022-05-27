@@ -1,0 +1,66 @@
+# Taps
+tap "eth-p/software"
+tap "felixkratz/formulae"
+tap "hacker1024/hacker1024"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "koekeishiya/formulae"
+tap "mas-cli/tap"
+tap "gromgit/fuse"
+
+# Casks
+cask "alfred"
+cask "font-iosevka-nerd-font"
+cask "iterm2"
+# TODO: add kitty git repo to ~/Code/Git/kitty edit kitty.conf to reflect location
+cask "kitty" 
+cask "authy"                            
+cask "font-victor-mono-nerd-font"
+cask "visual-studio-code"
+cask "firefox"                
+cask "hammerspoon"
+cask "macfuse"
+
+# Brew
+# TODO: Install Notated Packages Manually
+brew "gnupg"
+brew "git-secret", args: ["--head"]
+brew "antibody"
+brew "taskwarrior-tui"
+brew "iperf"
+brew "bitwarden-cli"
+brew "bpytop"
+brew "fd"
+brew "bat"
+brew "bat-extras"
+brew "imagemagick"
+brew "lsd"
+brew "luarocks"
+brew "macos-trash"
+brew "php"
+brew "qt@5"
+brew "task"
+brew "timg"
+brew "wallpaper"
+brew "watchman"
+brew "mas"
+brew "sshfs-mac"
+# NOTE: Packages Below Won't Install on Apple Silicon with Brew Bundle Check repo
+# brew "ranger", args:  ["--head"], restart_service: :changed 
+# brew "starship" 
+# brew "neovim" 
+# brew "pandoc" 
+# brew "asdf"  
+# brew "fzf" 
+# brew "jq" 
+brew "skhd", args:  ["--head"], restart_service: :changed
+brew "yabai", args:  ["--head"], restart_service: :changed
+brew "sketchybar", args:  ["--head"], restart_service: :changed
+
+# MAS Apps
+# TODO: Need to sign into the appstore first See Gtihub
+mas "Things 3", id: 904280696
+mas "LanScan", id: 472226235

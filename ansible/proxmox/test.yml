@@ -1,0 +1,24 @@
+- hosts: pve
+  
+  vars_prompt:
+    
+    - name: machine_name
+      prompt: Which machine would you like to control?
+    
+    - name: command
+      prompt: Which Command would you like to run
+
+  tasks:
+    - name: get name
+      shell: "qm list | grep -i {{ machine_name }} | awk '{print $1}'"
+      register: machine_vmid 
+
+
+    - name: run command
+      shell: "qm {{ command }} {{ machine_vmid.stdout }}"
+      register: command_output 
+
+    - name: test
+      debug:
+        msg: "{{ command_output.stdout }}"
+

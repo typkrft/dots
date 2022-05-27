@@ -1,0 +1,6 @@
+require('plugins/init')
+require('options')
+require('autocmds')
+require('keymaps')
+require('functions')
+require('highlights')

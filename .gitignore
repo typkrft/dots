@@ -1,0 +1,6 @@
+**/hosts
+**/plugin/packer_compiled.lua
+**/nvim/sessions
+**/unused/*
+**/private.cheat
+.DS_Store
