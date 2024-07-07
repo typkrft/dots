@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.brandon.launched.hidutil</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>sh</string>
+      <string>-c</string>
+      <string>hidutil property --set &#39;{&#34;UserKeyMapping&#34;:[{&#34;HIDKeyboardModifierMappingDst&#34;:30064771300,&#34;HIDKeyboardModifierMappingSrc&#34;:30064771129}]}&#39; &gt; /dev/null  </string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+  </dict>
+</plist>

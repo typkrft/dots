@@ -1,0 +1,4 @@
+{{- $headless := promptStringOnce . "headless" "Is this a headless server" -}}
+
+[data]
+    headless = {{ $headless | quote }}

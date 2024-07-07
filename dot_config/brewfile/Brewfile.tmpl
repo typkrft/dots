@@ -1,0 +1,93 @@
+tap "homebrew/services"
+tap "homebrew/command-not-found"
+tap "hashicorp/tap"
+{{- if eq .chezmoi.os "darwin" }}
+
+tap "FelixKratz/formulae"
+
+brew "borders", args: ["HEAD"]
+brew "fyabai", args: ["HEAD"]
+brew "mas"
+brew "sketchybar", args: ["HEAD"]
+brew "skhd", args: ["HEAD"]
+
+mas "Bitwarden", id: 1352778147
+{{- end }}
+{{- if eq .headless "false" }}
+
+cask "kitty", args: {zap: true}
+cask "logi-options-plus", args: {zap: true}, greedy: true
+cask "visual-studio-code", args: {zap: true}, greedy: true
+cask "alfred", args: {zap: true}, greedy: true
+cask "betterdiscord-installer", args: {zap: true}, greedy: true
+cask "discord", args: {zap: true}, greedy: true
+cask "espanso", args: {zap: true}, greedy: true
+cask "firefox@developer-edition", args: {zap: true}, greedy: true
+cask "chromium", args: {zap: true}, greedy: true
+
+vscode "beardedbear.beardedicons"
+vscode "charliermarsh.ruff"
+vscode "ionutvmi.path-autocomplete"
+vscode "echevarriandre.theme-dracula-clean"
+vscode "esbenp.prettier-vscode"
+vscode "formulahendry.code-runner"
+vscode "gruntfuggly.todo-tree"
+vscode "ibm.output-colorizer"
+vscode "mechatroner.rainbow-csv"
+vscode "janisdd.vscode-edit-csv"
+vscode "kamikillerto.vscode-colorize"
+vscode "ms-azuretools.vscode-docker"
+vscode "ms-python.python"
+vscode "ms-vscode.remote-explorer"
+vscode "ms-vscode-remote.remote-ssh"
+vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "redhat.ansible"
+vscode "redhat.vscode-yaml"
+vscode "sumneko.lua"
+vscode "timonwong.shellcheck"
+vscode "mathematic.vscode-pdf"
+vscode "firefox-devtools.vscode-firefox-debug"
+{{- end }}
+
+brew "asdf"
+brew "atuin"
+brew "bat"
+brew "bat-extras"
+brew "bitwarden-cli"
+brew "chezmoi"
+brew "cloudflared" 
+brew "coreutils"
+brew "curl"
+brew "envconsul"
+brew "eza"
+brew "fclones"
+brew "fd"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "gnu-sed"
+brew "hashicorp/tap/vault"
+brew "jq"
+brew "navi"
+brew "neovim"
+brew "notify"
+brew "openssl"
+brew "php"
+brew "prettier"
+brew "rsync"
+brew "readline"
+brew "ripgrep"
+brew "ruff"
+brew "shellcheck"
+brew "starship"
+brew "sqlite"
+brew "tcl-tk"
+brew "tealdeer"
+brew "tmux"
+brew "trash-cli"
+brew "watchman"
+brew "web-ext"
+brew "xz"
+brew "yazi"
+brew "zlib"
+brew "zoxide"
