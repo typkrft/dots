@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+# https://thevaluable.dev/zsh-line-editor-configuration-mouseless/
+
+# Vi Mode Set by Vim ZSH Plugin
+bindkey -v
+
+# Atuin Search
+bindkey '^r' atuin-search # ctrl - r
+
+# up, down - search substring
+bindkey '^[[A' history-beginning-search-backward
+bindkey '^[[B' history-beginning-search-forward
+{{ if eq .chezmoi.os "darwin" -}}
+# cmd-left - begging of line, cmd-right - end of line
+bindkey '^[[1;9D' beginning-of-line
+bindkey '^[[1;9C' end-of-line
+bindkey -M vicmd '^[[1;9D' beginning-of-line
+bindkey -M vicmd '^[[1;9C' end-of-line
+bindkey '⌘⌫' backward-kill-line
+bindkey '⌘⌫' backward-kill-line
+bindkey '⌥⌫' backward-kill-word
+bindkey '⌥⌫' backward-kill-word
+bindkey '⌘z' undo
+bindkey '⌘z' undo
+bindkey '⌘⇪z' redo
+bindkey '⌘⇪z' redo
+{{- end }}
+
+# bindkey '^y' yank
+# bindkey '^[[?' 
+

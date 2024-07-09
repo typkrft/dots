@@ -1,4 +1,6 @@
 {{- $headless := promptStringOnce . "headless" "Is this a headless server" -}}
+{{- $atuin := promptStringOnce . "atuin" "Optional: Enter Atuin server Address" -}}
 
 [data]
     headless = {{ $headless | quote }}
+    atuin = {{ $atuin | quote }}

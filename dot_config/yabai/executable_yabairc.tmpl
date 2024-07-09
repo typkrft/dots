@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Requires SIP to be partially disabled
+if csrutil status | grep -q 'disabled'; then
+    sudo yabai --load-sa
+    
+    sip_opts=(
+        window_shadow float
+        window_opacity on
+        active_window_opacity 1.0
+        normal_window_opacity 0.95
+    )
+  
+    yabai -m config "${sip_opts[@]}"
+fi
+
+global_opts=(
+    layout bsp
+    left_padding 8
+    right_padding 8
+    top_padding 8
+    bottom_padding 8
+    window_gap 14
+    window_origin_display cursor
+    window_zoom_persist on
+    window_placement first_child
+    auto_balance on
+    split_type auto
+    mouse_follows_focus on
+    # split_ratio 0.75
+    focus_follows_mouse autoraise
+    mouse_modifier ctrl
+    mouse_action1 move
+    mouse_action2 resize
+    mouse_drop_action stack
+    insert_feedback_color "0xff{{ .dracula.hex.green }}"
+    external_bar main:32:0
+    menubar_opacity 0.8
+)
+
+yabai -m config "${global_opts[@]}"
+
+# colors can be gradient(top_left=0xff50FA7B,bottom_right=0xffBD93F9)
+border_opts=(
+    active_color="0xff{{ .dracula.hex.purple }}"
+    inactive_color="0xff{{ .dracula.hex.comment }}"
+    width=8.0
+    hidpi=off
+)
+
+killall borders &> /dev/null
+borders "${border_opts[@]}" &

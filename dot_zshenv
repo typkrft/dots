@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-export STARSHIP_CONFIG='~/.config/starship/starship.toml'

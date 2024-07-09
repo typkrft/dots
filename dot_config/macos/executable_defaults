@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+defaults write -g 'NSAutomaticCapitalizationEnabled' -bool NO
+defaults write -g 'NSAutomaticDashSubstitutionEnabled' -bool NO
+defaults write -g 'NSAutomaticPeriodSubstitutionEnabled' -bool NO
+defaults write -g 'NSAutomaticQuoteSubstitutionEnabled' -bool NO
+defaults write -g 'NSAutomaticSpellingCorrectionEnabled' -bool NO
+
+defaults write -g 'NSNavPanelExpandedStateForSaveMode' -bool YES
+defaults write -g 'NSNavPanelExpandedStateForSaveMode2' -bool YES
+
+defaults write -g 'PMPrintingExpandedStateForPrint' -bool YES
+defaults write -g 'PMPrintingExpandedStateForPrint2' -bool YES
+
+defaults write com.apple.dock 'autohide' -bool YES
+defaults write com.apple.dock 'minimize-to-application' -bool YES
+defaults write com.apple.dock 'mru-spaces' -bool NO
+defaults write com.apple.dock 'show-recents' -bool NO
+defaults write com.apple.dock 'wvous-bl-corner' -int 14
+defaults write com.apple.dock 'wvous-br-corner' -int 4
+defaults write com.apple.dock 'wvous-tl-corner' -int 2
+defaults write com.apple.dock 'wvous-tr-corner' -int 12
+
+defaults write com.apple.finder 'AppleShowAllExtensions' -bool YES
+# defaults write com.apple.finder 'CreateDesktop' -bool NO # https://github.com/koekeishiya/yabai/issues/863#issuecomment-1953184269
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+defaults write com.apple.finder 'FXDefaultSearchScope' -string 'SCcf'
+defaults write com.apple.finder 'FXEnableExtensionChangeWarning' -bool NO
+defaults write com.apple.finder 'FXPreferredViewStyle' -string 'clmv'
+defaults write com.apple.finder 'ShowPathbar' -bool YES
+defaults write com.apple.finder '_FXShowPosixPathInTitle' -bool YES
+
+defaults write com.apple.screencapture 'disable-shadow' -bool YES
+defaults write com.apple.screencapture 'location' -string "$HOME/Pictures/Screenshots"
+
+defaults write com.apple.SoftwareUpdate 'AutomaticCheckEnabled' -bool YES
+defaults write com.apple.SoftwareUpdate 'AutomaticDownload' -int 1
+defaults write com.apple.SoftwareUpdate 'CriticalUpdateInstall' -int 1
+defaults write com.apple.SoftwareUpdate 'ScheduleFrequency' -int 1
+
+defaults write com.apple.desktopservices 'DSDontWriteNetworkStores' -bool YES
+defaults write com.apple.desktopservices 'DSDontWriteUSBStores' -bool YES
+
+defaults write com.apple.screensaver 'askForPassword' -int 1
+defaults write com.apple.screensaver 'askForPasswordDelay' -int 0
+
+defaults write -g 'AppleICUForce24HourTime' -bool YES
+defaults write -g 'AppleInterfaceStyle' -string 'Dark'
+defaults write -g 'AppleKeyboardUIMode' -int 3
+defaults write -g 'ApplePressAndHoldEnabled' -bool NO
+defaults write -g 'AppleShowAllExtensions' -bool YES
+defaults write -g 'AppleShowAllFiles' -bool YES
+defaults write -g 'AppleShowScrollBars' -string 'WhenScrolling'
+defaults write -g 'AppleWindowTabbingMode' -string 'fullscreen'
+defaults write -g 'InitialKeyRepeat' -int 20
+defaults write -g 'KeyRepeat' -int 3
+defaults write -g '_HIHideMenuBar' -bool YES
+defaults write -g 'com.apple.swipescrolldirection' -bool YES
+defaults write -g 'com.apple.trackpad.scaling' -float 2.400000
+defaults write .GlobalPreferences 'com.apple.sound.beep.sound' -string '/System/Library/Sounds/hero'
+defaults write com.apple.AdLib 'allowApplePersonalizedAdvertising' -bool NO
+defaults write com.apple.print.PrintingPrefs 'Quit When Finished' -bool YES

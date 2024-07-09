@@ -1,0 +1,77 @@
+# Focus Window
+rctrl - h : yabai -m window --focus west
+rctrl - j : yabai -m window --focus south
+rctrl - k : yabai -m window --focus north
+rctrl - l : yabai -m window --focus east
+
+# Move Window
+rctrl + shift - h : yabai -m window --swap west
+rctrl + shift - j : yabai -m window --swap south
+rctrl + shift - k : yabai -m window --swap north
+rctrl + shift - l : yabai -m window --swap east
+
+# Warp Window
+rctrl + alt - h : yabai -m window --warp west
+rctrl + alt - j : yabai -m window --warp south
+rctrl + alt - k : yabai -m window --warp north
+rctrl + alt - l : yabai -m window --warp east
+
+# Rotate, Mirror, Change Split, Balance
+rctrl - r : yabai -m space --rotate 270
+rctrl - y : yabai -m space --mirror y-axis
+rctrl - x : yabai -m space --mirror x-axis
+rctrl - s : yabai -m window --toggle split
+rctrl - b : yabai -m space --balance
+
+# Float, Zoom, Sticky
+rctrl - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
+rctrl - z : yabai -m window --toggle zoom-fullscreen
+rctrl - t : yabai -m window --toggle sticky
+
+# Stack
+rctrl + cmd - return : yabai -m window --insert stack
+rctrl + cmd - h : yabai -m window --stack west
+rctrl + cmd - j : yabai -m window --stack south 
+rctrl + cmd - k : yabai -m window --stack north
+rctrl + cmd - l : yabai -m window --stack east
+
+# Unstack
+rctrl + cmd - backspace : yabai -m window --insert east || yabai -m window --insert south || yabai -m window --insert north || yabai -m window --insert west; yabai -m window --toggle float; yabai -m window --toggle float
+
+# Stack Select
+rctrl - 0x2B : yabai -m window --focus stack.prev || yabai -m window --focus stack.next
+rctrl - 0x2F : yabai -m window --focus stack.next || yabai -m window --focus stack.prev
+
+# Switch Display
+rctrl - d : yabai -m display --focus next || yabai -m display --focus prev
+
+# Swap Largest
+rctrl - space : yabai -m window --swap largest
+
+# Increase Window Size
+alt - h : yabai -m window --resize left:-20:0
+alt - j : yabai -m window --resize bottom:0:20
+alt - k : yabai -m window --resize top:0:-20
+alt - l : yabai -m window --resize right:20:0
+
+# Decrease Window Size
+alt + shift - h : yabai -m window --resize right:-20:0
+alt + shift - j : yabai -m window --resize top:0:20
+alt + shift - k : yabai -m window --resize bottom:0:-20
+alt + shift - l : yabai -m window --resize left:20:0
+
+# Move Window to Space
+rctrl + shift + cmd - p : yabai -m window --space prev; skhd -k "ctrl - left"
+rctrl + shift + cmd - n : yabai -m window --space next; skhd -k "ctrl - right"
+
+# Move Window to Display
+alt + shift + cmd - p : yabai -m window --display prev; yabai -m display --focus prev
+alt + shift + cmd - n : yabai -m window --display next; yabai -m display --focus next
+
+# Restart SKHD, Yabai
+rctrl + shift + alt - s : skhd --restart-service || skhd --start-service
+rctrl + shift + alt - y : yabai --restart-service || yabai --start-service
+
+cmd - t [
+    "finder" : skhd -k "cmd-n"
+]

@@ -1,0 +1,67 @@
+[".config/zsh/plugins/zsh-vi-mode.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/jeffreytse/zsh-vi-mode/master/zsh-vi-mode.zsh"
+    refreshPeriod = "168h"
+
+[".config/zsh/completions/chezmoi.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/twpayne/chezmoi/master/completions/chezmoi.zsh"
+    refreshPeriod = "168h"
+
+[".config/zsh/completions/_eza"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/eza-community/eza/main/completions/zsh/_eza"
+    refreshPeriod = "168h"
+
+[".config/zsh/completions/_yabai"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/Amar1729/yabai-zsh-completions/main/src/_yabai"
+    refreshPeriod = "168h"
+
+# Broken - Accepts suggestions under a number of circumstances without doing so explicitly
+# [".config/zsh/plugins/zsh-autosuggestions.zsh"]
+#     type = "file"
+#     url = "https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh"
+#     refreshPeriod = "168h"
+
+[".config/zsh/plugins/autopair.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/hlissner/zsh-autopair/master/autopair.zsh"
+    refreshPeriod = "168h"
+
+[".config/zsh/plugins/navi.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/denisidoro/navi/master/shell/navi.plugin.zsh"
+    refreshPeriod = "168h"
+
+[".config/zsh/plugins/zsh-ssh.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/sunlei/zsh-ssh/master/zsh-ssh.zsh"
+    refreshPeriod = "168h"
+
+[".config/zsh/plugins/fzf-tab"]
+    type = "git-repo"
+    url = "https://github.com/Aloxaf/fzf-tab.git"
+    refreshPeriod = "168h"
+    stripComponents = 1
+
+[".config/zsh/plugins/zsh-autocomplete"]
+    type = "git-repo"
+    url = "https://github.com/marlonrichert/zsh-autocomplete.git"
+    refreshPeriod = "168h"
+    stripComponents = 1
+
+[".config/zsh/plugins/zsh-syntax-highlighting"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    refreshPeriod = "168h"
+    stripComponents = 1
+
+[".config/zsh/plugins/fzf-tab-source"]
+    type = "git-repo"
+    url = "https://github.com/Freed-Wu/fzf-tab-source"
+    refreshPeriod = "168h"
+    stripComponents = 1
+
+
+

@@ -1,3 +1,60 @@
+format = '''
+╭─\( $battery$time\)──\( $sudo$username$hostname$directory$docker_context$container\)$git_branch$git_commit$git_state$git_metrics$git_status$cmd_duration
+╰─$character'''
+
+# "─╮"
+# right_format = '\( $shlvl$singularity$kubernetes$vcsh$fossil_branch$fossil_metrics$hg_branch$pijul_channel$package$c$cmake$cobol$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$gleam$golang$guix_shell$haskell$haxe$helm$java$julia$kotlin$gradle$lua$nim$nodejs$ocaml$opa$perl$php$pulumi$purescript$python$quarto$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$typst$vlang$vagrant$zig$buf$nix_shell$conda$meson$spack$memory_usage$aws$gcloud$openstack$azure$nats$direnv$env_var$crystal$custom$jobs$shell \)─╯'
+
+
+[sudo]
+disabled = false
+symbol = " "
+format = '[$symbol]($style) '
+style = "bold black"
+
+[fill]
+symbol = " "
+
+[username]
+disabled = false
+style_user = "italic"
+show_always = true
+format = '[$user]($style)'
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )\)'
+disabled = false
+
+[battery]
+disabled = false
+
+[[battery.display]]
+threshold = 10
+style = 'bold red'
+
+[cmd_duration]
+# show_notifications = true
+format = '──\(  [$duration]($style) \)'
+
+[os]
+disabled = false
+style = "bold blue"
+
+[git_metrics]
+disabled = false
+
+[time]
+disabled = false
+format = '[$time]($style) '
+
+[character]
+success_symbol = '[](bold green) '
+error_symbol = '[](bold red) '
+vimcmd_symbol = '[ \[N\]](fg:bright-black)'
+vimcmd_visual_symbol = '[ \[V\]](fg:bright-purple)'
+# vimcmd_replace_one_symbol
+# vimcmd_replace_symbol
+
 [aws]
 symbol = "  "
 
@@ -17,10 +74,13 @@ symbol = " "
 symbol = " "
 
 [directory]
+truncation_symbol = "…/"
 read_only = " 󰌾"
+format = ' \)──\( [ ](bold blue) [$path]($style)[$read_only]($read_only_style) '
 
 [docker_context]
 symbol = " "
+format = '──( [$symbol$context]($style) )'
 
 [elixir]
 symbol = " "
@@ -34,8 +94,13 @@ symbol = " "
 [fossil_branch]
 symbol = " "
 
+[git_commit]
+disabled = false
+format = '[\\($hash$tag\\)]($style) '
+
 [git_branch]
 symbol = " "
+format = '──\( [$symbol$branch(:$remote_branch)]($style) '
 
 [golang]
 symbol = " "
@@ -52,8 +117,15 @@ symbol = " "
 [hg_branch]
 symbol = " "
 
+[localip]
+disabled = false
+ssh_only = true
+
 [hostname]
 ssh_symbol = " "
+format = '[ @ ](green)[$ssh_symbol$hostname]($style)'
+style = "purple"
+# ssh_only = false
 
 [java]
 symbol = " "
@@ -69,6 +141,7 @@ symbol = " "
 
 [memory_usage]
 symbol = "󰍛 "
+disabled = false
 
 [meson]
 symbol = "󰔷 "
@@ -81,6 +154,7 @@ symbol = " "
 
 [nodejs]
 symbol = " "
+format = '[$symbol]($style)'
 
 [ocaml]
 symbol = " "
@@ -107,7 +181,7 @@ Illumos = "󰈸 "
 Kali = " "
 Linux = " "
 Mabox = " "
-Macos = " "
+Macos = "󰘳 "
 Manjaro = " "
 Mariner = " "
 MidnightBSD = " "
@@ -143,7 +217,8 @@ symbol = " "
 symbol = " "
 
 [python]
-symbol = " "
+symbol = "  "
+format = '[${symbol}${pyenv_prefix}(\($virtualenv\))]($style)'
 
 [rlang]
 symbol = "󰟔 "

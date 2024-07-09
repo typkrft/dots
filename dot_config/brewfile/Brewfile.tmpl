@@ -1,19 +1,19 @@
 tap "homebrew/services"
 tap "homebrew/command-not-found"
 tap "hashicorp/tap"
-{{- if eq .chezmoi.os "darwin" }}
-
+{{ if eq .chezmoi.os "darwin" -}}
 tap "FelixKratz/formulae"
 
 brew "borders", args: ["HEAD"]
-brew "fyabai", args: ["HEAD"]
+brew "yabai", args: ["HEAD"]
 brew "mas"
 brew "sketchybar", args: ["HEAD"]
 brew "skhd", args: ["HEAD"]
+brew "keith/formulae/reminders-cli"
 
 mas "Bitwarden", id: 1352778147
-{{- end }}
-{{- if eq .headless "false" }}
+{{ end }}
+{{ if eq .headless "false" }}
 
 cask "kitty", args: {zap: true}
 cask "logi-options-plus", args: {zap: true}, greedy: true
@@ -23,7 +23,10 @@ cask "betterdiscord-installer", args: {zap: true}, greedy: true
 cask "discord", args: {zap: true}, greedy: true
 cask "espanso", args: {zap: true}, greedy: true
 cask "firefox@developer-edition", args: {zap: true}, greedy: true
-cask "chromium", args: {zap: true}, greedy: true
+cask "chromium", args: {zap: true, no_quarantine: true}, greedy: true
+cask "font-victor-mono", args: {zap: true}, greedy: true
+cask "font-symbols-only-nerd-font", args: {zap: true}, greedy: true
+cask "font-iosevka", args: {zap: true}, greedy: true
 
 vscode "beardedbear.beardedicons"
 vscode "charliermarsh.ruff"
@@ -47,7 +50,13 @@ vscode "sumneko.lua"
 vscode "timonwong.shellcheck"
 vscode "mathematic.vscode-pdf"
 vscode "firefox-devtools.vscode-firefox-debug"
-{{- end }}
+{{ end }}
+
+{{ if eq .headless "true" -}}
+brew "docker"
+brew "docker-compose"
+brew "lazydocker"
+{{ end }}
 
 brew "asdf"
 brew "atuin"
@@ -65,14 +74,20 @@ brew "fd"
 brew "fzf"
 brew "gh"
 brew "git"
+brew "glow"
 brew "gnu-sed"
 brew "hashicorp/tap/vault"
 brew "jq"
+brew "lazygit"
 brew "navi"
 brew "neovim"
 brew "notify"
 brew "openssl"
+brew "pcre" # Required for pcre module in brew zsh?
+brew "pcre2" # Required for pcre module in brew zsh?
+brew "rclone"
 brew "php"
+brew "ncdu"
 brew "prettier"
 brew "rsync"
 brew "readline"
@@ -84,10 +99,12 @@ brew "sqlite"
 brew "tcl-tk"
 brew "tealdeer"
 brew "tmux"
-brew "trash-cli"
+brew "trash"
 brew "watchman"
 brew "web-ext"
 brew "xz"
 brew "yazi"
+brew "yq"
 brew "zlib"
 brew "zoxide"
+brew "zsh"
