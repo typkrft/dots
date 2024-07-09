@@ -48,5 +48,11 @@ border_opts=(
     hidpi=off
 )
 
+# Rules
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^System Information$" manage=off 
+yabai -m rule --add app="^Calculator$" manage=off
+
 killall borders &> /dev/null
 borders "${border_opts[@]}" &

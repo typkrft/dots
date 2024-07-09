@@ -5,18 +5,33 @@
 - [ ] if darwin start yabai skhd etc
 
 # Configure 
-- [ ] Configure ZSH, Tmux, Sketchybar
+- [ ] Configure ZSH, 
+- [ ] [Tmux](https://www.youtube.com/watch?v=DzNmUNvnB04&embeds_referring_euri=https%3A%2F%2Fwww.google.com%2F&source_ve_path=MjM4NTE&feature=emb_title)
+- [ ] Sketchybar
 - [ ] Yabai Rules
 - [ ] If headless install docker brewfile lazy docker 
 - [ ] FF user.js
 - [ ] FF Extensions
 - [ ] Sudo Touch ID
+- [ ] [Alfred](https://github.com/typkrft/dotfiles-bak/tree/main/Library/Application%20Support/Alfred/Alfred.alfredpreferences)
+- [ ] Ansible Scripts
+- [ ] [FZF Tab](https://github.com/Aloxaf/fzf-tab/wiki/Preview)
 
 # Fix
 - [ ] Right prompt min width or remove from starship
 - [ ] Code Icons should be next to git info 
 - [ ] Local IP only if ssh on right
 - [ ] Wizard hat should be purple
+- [ ] zioxide completions not working
+- [ ] [try fix
+- [ ] ](https://github.com/zsh-users/zsh-autosuggestions/issues/673#issuecomment-1155356102)
 
 # Upgrade
 - [ ] chpwd starship detect ssh various extensions 
+
+# Features
+- [ ] keybind question mark as a hotkey to open a md in terminal in floating window
+- [ ] [ZSH Plugin BW](https://github.com/casonadams/bitwarden-cli)
+- [ ] [ZSH Plugin LLM](https://github.com/plutowang/zsh-ollama-command)
+- [ ] [ZSH Plugin](https://github.com/Freed-Wu/fzf-tab-source)
+- [ ] [look at poetry](https://www.youtube.com/watch?v=Ji2XDxmXSOM)

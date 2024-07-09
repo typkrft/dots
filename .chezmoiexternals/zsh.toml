@@ -8,6 +8,12 @@
     url = "https://raw.githubusercontent.com/twpayne/chezmoi/master/completions/chezmoi.zsh"
     refreshPeriod = "168h"
 
+[".config/zsh/completions/zoxide-zsh-completion"]
+    type = "git-repo"
+    url = "https://github.com/jnooree/zoxide-zsh-completion.git"
+    refreshPeriod = "168h"
+    stripComponents = 1
+
 [".config/zsh/completions/_eza"]
     type = "file"
     url = "https://raw.githubusercontent.com/eza-community/eza/main/completions/zsh/_eza"
