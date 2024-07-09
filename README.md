@@ -1,7 +1,7 @@
 # Install Scripts
 - [ ] Script to Install Brew, Brewfile Profile, Firefox, asdf, Python, pip 
 - [ ] after brew installed and close terminal after initial run sudo chsh -s "$(brew --prefix)/bin/zsh" $USER
--[ ] [kitty icons](https://github.com/kovidgoyal/kitty/issues/3618) [Update icon from Terminal](https://superuser.com/questions/618501/changing-an-applications-icon-from-the-terminal-osx)
+- [ ] [kitty icons](https://github.com/kovidgoyal/kitty/issues/3618) [Update icon from Terminal](https://superuser.com/questions/618501/changing-an-applications-icon-from-the-terminal-osx)
 - [ ] if darwin start yabai skhd etc
 
 # Configure 
