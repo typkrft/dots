@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
-
 # Init various programs
 eval "$(/opt/homebrew/bin/brew shellenv)"
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
@@ -14,10 +13,10 @@ FPATH="$HOME/.config/zsh/completions:${FPATH}"
 autoload -Uz compinit
 compinit
 
-
 for file in "$HOME"/.config/zsh/*(.)zsh; do 
     . "$file"
 done
+
 
 # Prompt: Place at the end of file
 function set_win_title(){

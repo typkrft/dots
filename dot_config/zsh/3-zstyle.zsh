@@ -1,7 +1,6 @@
 
 # Case Insensitive Matching
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
 # fzf-tab https://github.com/Aloxaf/fzf-tab?tab=readme-ov-file#configure
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
@@ -19,3 +18,5 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:complete:cd:*' popup-pad 100 0
 zstyle ':completion:*:descriptions' format '[%d]'
+# zoxide
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'

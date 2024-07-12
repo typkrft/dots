@@ -25,10 +25,10 @@
     refreshPeriod = "168h"
 
 # Broken - Accepts suggestions under a number of circumstances without doing so explicitly
-# [".config/zsh/plugins/zsh-autosuggestions.zsh"]
-#     type = "file"
-#     url = "https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh"
-#     refreshPeriod = "168h"
+[".config/zsh/plugins/zsh-autosuggestions.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh"
+    refreshPeriod = "168h"
 
 [".config/zsh/plugins/autopair.zsh"]
     type = "file"
