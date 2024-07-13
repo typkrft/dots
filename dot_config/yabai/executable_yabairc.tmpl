@@ -14,6 +14,7 @@ if csrutil status | grep -q 'disabled'; then
     yabai -m config "${sip_opts[@]}"
 fi
 
+bar_height=$("$(brew --prefix)/bin/sketchybar" --query bar | jq -r .height)
 global_opts=(
     layout bsp
     left_padding 8
@@ -34,11 +35,18 @@ global_opts=(
     mouse_action2 resize
     mouse_drop_action stack
     insert_feedback_color "0xff{{ .dracula.hex.green }}"
-    external_bar main:32:0
     menubar_opacity 0.8
+    external_bar main:"${bar_height}":0
 )
 
 yabai -m config "${global_opts[@]}"
+
+
+# Rules
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^System Information$" manage=off 
+yabai -m rule --add app="^Calculator$" manage=off
 
 # colors can be gradient(top_left=0xff50FA7B,bottom_right=0xffBD93F9)
 border_opts=(
@@ -48,11 +56,8 @@ border_opts=(
     hidpi=off
 )
 
-# Rules
-yabai -m rule --add app="^System Preferences$" manage=off
-yabai -m rule --add app="^Finder$" manage=off
-yabai -m rule --add app="^System Information$" manage=off 
-yabai -m rule --add app="^Calculator$" manage=off
 
 killall borders &> /dev/null
 borders "${border_opts[@]}" &
+killall sketchybar &> /dev/null
+sketchybar &
