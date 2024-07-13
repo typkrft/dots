@@ -64,18 +64,23 @@ function yank() {
         text=$(/usr/bin/curl -A $user_agent -kLsS "${@:2}")
         code=$?
     else 
-        text=$(echo -n "${@}")
+        if [[ $# -eq 0 ]]; then 
+            text=$(< /dev/stdin)
+        else
+            text=$(echo -n "${@}")
+        fi
         code=$?
     fi
     
     if [[ $code == 0 ]]; then
-        echo $text | pbcopy
+        echo -n $text | pbcopy
         echo "Copied to clipboard"
+        return
     else
         echo "Failed to copy to clipboard."
+        return $code
     fi
     
-    return $code
 }
 
 
