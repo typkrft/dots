@@ -36,8 +36,10 @@ tab_powerline_style slanted
 macos_option_as_alt yes
 macos_quit_when_last_window_closed yes
 macos_colorspace displayp3
+# Unmap cmd + k and handle clearing from zsh and 
+map cmd+k no_op 
+map cmd+v no_op
 map cmd+b send_text normal,application \x02
-map cmd+k send_text normal,application \f
 map cmd+backspace send_text normal,application ⌘⌫
 map alt+backspace send_text normal,application ⌥⌫
 map cmd+shift+z send_text normal,application ⌘⇪z

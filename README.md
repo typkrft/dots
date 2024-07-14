@@ -3,6 +3,7 @@
 - [ ] after brew installed and close terminal after initial run sudo chsh -s "$(brew --prefix)/bin/zsh" $USER
 - [ ] [kitty icons](https://github.com/kovidgoyal/kitty/issues/3618) [Update icon from Terminal](https://superuser.com/questions/618501/changing-an-applications-icon-from-the-terminal-osx)
 - [ ] if darwin start yabai skhd etc
+- [ ] build-fzf-tab-module after fzf installed
 
 # Configure 
 - [ ] Configure ZSH, 
@@ -25,6 +26,9 @@
 - [ ] zioxide completions not working
 - [ ] [try fix
 - [ ] ](https://github.com/zsh-users/zsh-autosuggestions/issues/673#issuecomment-1155356102)
+- [ ] fzf ls in tmux should act like cd. currently full of escape codes trouble shoot zstyles, fzf, fzf-tab config
+- [ ] VIMcmd mode not working zsh
+- [ ] ${text_to_add} is black when pasted
 
 # Upgrade
 - [ ] chpwd starship detect ssh various extensions 

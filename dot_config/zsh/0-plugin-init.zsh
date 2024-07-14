@@ -9,8 +9,7 @@ export ZVM_INIT_MODE=sourcing
 . $HOME/.config/zsh/plugins/fzf-tab-source/fzf-tab-source.plugin.zsh
 . $HOME/.config/zsh/plugins/autopair.zsh
 . $HOME/.config/zsh/plugins/navi.zsh
-. $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-. $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+. $HOME/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 . $HOME/.config/zsh/plugins/zsh-autosuggestions.zsh
 
 # Addtional Steps Required

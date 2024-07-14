@@ -123,7 +123,7 @@ function _ls_report() {
 }
 
 
-_starship_git_r_prompt() {
+function _starship_git_r_prompt() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
         starship config format '''
 ╭─\( $battery$time\)──\( $sudo$username$hostname$directory$docker_context$container\)$git_branch$git_commit$git_state$git_metrics$git_status$cmd_duration$fill\( $localip$shlvl$singularity$kubernetes$vcsh$fossil_branch$fossil_metrics$hg_branch$pijul_channel$package$c$cmake$cobol$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$gleam$golang$guix_shell$haskell$haxe$helm$java$julia$kotlin$gradle$lua$nim$nodejs$ocaml$opa$perl$php$pulumi$purescript$python$quarto$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$typst$vlang$vagrant$zig$buf$nix_shell$conda$meson$spack$memory_usage$aws$gcloud$openstack$azure$nats$direnv$env_var$crystal$custom$jobs$shell\)
@@ -135,20 +135,39 @@ _starship_git_r_prompt() {
     fi 
 }
 
-zelda_secret() {
+function zelda_secret() {
     tmp=$(mktemp --tmpdir)
     curl -sSo $tmp https://www.myinstants.com/media/sounds/ringtones-zelda-1.mp3
     afplay $tmp 
     /bin/rm $tmp
 }
 
-game_quote() {
+function game_quote() {
     quote_json=$(curl -sSL https://ultima.rest/api/random)
     echo $(echo $quote_json | jq .quote) - $(echo $quote_json | jq -r .character): $(echo $quote_json | jq -r .title)
 }
 
 
-chpwd() { 
+function chpwd() { 
     _ls_report 
     _starship_git_r_prompt
 }
+
+function set_win_title(){
+    echo -ne "\033]0; $(basename "$PWD") \007"
+}
+
+function scroll-and-clear-screen() {
+  local i=1
+  while read; do ((i++)); done <<< $PS1
+  printf '\n%.0s' {$i..$LINES}
+  zle clear-screen
+}
+zle -N scroll-and-clear-screen
+
+function _paste_without_autopair() {
+    # Attempt to sanatize
+    text=$(printf "%s\n" "$(pbpaste)")
+    LBUFFER+="$text"
+}
+zle -N _paste_without_autopair

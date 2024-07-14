@@ -24,6 +24,14 @@ bindkey '⌘z' undo
 bindkey '⌘z' undo
 bindkey '⌘⇪z' redo
 bindkey '⌘⇪z' redo
+# https://github.com/kovidgoyal/kitty/issues/1113#issuecomment-855838056
+# I was unable to bind cmd+k alt+k ctrl+k to something that cleared the screen
+# and presereved history in kitty in a naked zsh prompt or tmux zsh prompt
+# not sure what combination of os, shell, tmux problems this is.
+# however because I have set the bind key to a kitty send_text I will only include
+# it in the macos portion until I can try it on linux.
+bindkey '^[[107;9u' scroll-and-clear-screen # Doesn't work in tmux
+bindkey '^[[118;9u' _paste_without_autopair
 {{- end }}
 
 # bindkey '^y' yank

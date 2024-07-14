@@ -57,9 +57,9 @@
     refreshPeriod = "168h"
     stripComponents = 1
 
-[".config/zsh/plugins/zsh-syntax-highlighting"]
+[".config/zsh/plugins/fast-syntax-highlighting"]
     type = "git-repo"
-    url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    url = "https://github.com/zdharma-continuum/fast-syntax-highlighting"
     refreshPeriod = "168h"
     stripComponents = 1
 

@@ -41,12 +41,8 @@ global_opts=(
 
 yabai -m config "${global_opts[@]}"
 
-
 # Rules
-yabai -m rule --add app="^System Preferences$" manage=off
-yabai -m rule --add app="^Finder$" manage=off
-yabai -m rule --add app="^System Information$" manage=off 
-yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^(Authy Desktop|Bitwarden|Calculator|System Settings|Finder)$" sticky=on sub-layer=above manage=off 
 
 # colors can be gradient(top_left=0xff50FA7B,bottom_right=0xffBD93F9)
 border_opts=(

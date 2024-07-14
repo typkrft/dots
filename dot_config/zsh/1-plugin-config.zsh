@@ -5,3 +5,5 @@ if [ -f "$HB_CNF_HANDLER" ]; then
 fi
 
 ZVM_VI_EDITOR=nvim
+
+zle_highlight=(paste:none)
