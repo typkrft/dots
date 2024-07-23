@@ -171,3 +171,13 @@ function _paste_without_autopair() {
     LBUFFER+="$text"
 }
 zle -N _paste_without_autopair
+
+function _beginning_of_prompt() {
+    CURSOR=0
+}
+zle -N _beginning_of_prompt
+
+function _end_of_prompt() {
+    CURSOR=${#BUFFER}
+}
+zle -N _end_of_prompt

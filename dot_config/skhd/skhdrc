@@ -39,8 +39,8 @@ rctrl + cmd - l : yabai -m window --stack east
 rctrl + cmd - backspace : yabai -m window --insert east || yabai -m window --insert south || yabai -m window --insert north || yabai -m window --insert west; yabai -m window --toggle float; yabai -m window --toggle float
 
 # Stack Select
-rctrl - 0x2B : yabai -m window --focus stack.prev || yabai -m window --focus stack.next
-rctrl - 0x2F : yabai -m window --focus stack.next || yabai -m window --focus stack.prev
+rctrl - 0x21 : yabai -m window --focus stack.prev || yabai -m window --focus stack.next
+rctrl - 0x1E : yabai -m window --focus stack.next || yabai -m window --focus stack.prev
 
 # Switch Display
 rctrl - d : yabai -m display --focus next || yabai -m display --focus prev

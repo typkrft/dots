@@ -1,0 +1,57 @@
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin '2kabhishek/tmux2k'
+# set -g @plugin 'christoomey/vim-tmux-navigator'
+
+
+# Plugin Settings
+set -g @tmux2k-theme 'duo'
+set -g @tmux2k-show-powerline false
+set -g @tmux2k-bg-main '#{{- .dracula.hex.background -}}'
+set -g @tmux2k-blue '#{{- .dracula.hex.foreground -}}'
+
+# Sensible Settings
+set -s escape-time 5
+set -g history-limit 50000
+set -g display-time 4000
+set -g status-interval 5
+setw -g aggressive-resize on
+set -g focus-events on
+set -g mode-keys emacs
+set -g status-keys emacs
+# set-option -g status-position top
+
+# Options
+set-option -sa terminal-overrides ",xterm*:Tc"
+set -g mouse on
+
+# Yazi for Images 
+set -g allow-passthrough on
+set -ga update-environment TERM
+set -ga update-environment TERM_PROGRAM
+
+# Start windows at 1
+set -g base-index 1
+set -g pane-base-index 1
+set-window-option -g pane-base-index 1
+set-option -g renumber-windows on
+
+# Set Leader
+unbind C-b 
+set -g prefix C-Space
+bind C-Space send-prefix 
+
+# keybinds
+bind -n C-[ select-pane -t :.-
+bind -n C-] select-pane -t :.+
+bind R source-file '{{- .chezmoi.homeDir -}}/.config/tmux/tmux.conf'
+
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'github_username/plugin_name#branch'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.config/tmux/plugins/tpm/tpm'

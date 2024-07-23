@@ -2,7 +2,7 @@
 # https://thevaluable.dev/zsh-line-editor-configuration-mouseless/
 
 # Vi Mode Set by Vim ZSH Plugin
-bindkey -v
+bindkey -e
 
 # Atuin Search
 bindkey '^r' atuin-search # ctrl - r
@@ -12,26 +12,27 @@ bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
 {{ if eq .chezmoi.os "darwin" -}}
 # cmd-left - begging of line, cmd-right - end of line
-bindkey '^[[1;9D' beginning-of-line
-bindkey '^[[1;9C' end-of-line
-bindkey -M vicmd '^[[1;9D' beginning-of-line
-bindkey -M vicmd '^[[1;9C' end-of-line
-bindkey '⌘⌫' backward-kill-line
+# bindkey '^[[1;9D' beginning-of-line # Tmux issues
+# bindkey '^[[1;9C' end-of-line
+# bindkey -M vicmd '^[[1;9D' beginning-of-line
+# bindkey -M vicmd '^[[1;9C' end-of-line
+bindkey '⌘⇦' beginning-of-line # Tmux issues
+bindkey '⌘⇨' end-of-line
+bindkey '⌘⇧' _beginning_of_prompt
+bindkey '⌘⇩' _end_of_prompt
 bindkey '⌘⌫' backward-kill-line
 bindkey '⌥⌫' backward-kill-word
-bindkey '⌥⌫' backward-kill-word
-bindkey '⌘z' undo
 bindkey '⌘z' undo
 bindkey '⌘⇪z' redo
-bindkey '⌘⇪z' redo
+
 # https://github.com/kovidgoyal/kitty/issues/1113#issuecomment-855838056
 # I was unable to bind cmd+k alt+k ctrl+k to something that cleared the screen
 # and presereved history in kitty in a naked zsh prompt or tmux zsh prompt
 # not sure what combination of os, shell, tmux problems this is.
 # however because I have set the bind key to a kitty send_text I will only include
 # it in the macos portion until I can try it on linux.
-bindkey '^[[107;9u' scroll-and-clear-screen # Doesn't work in tmux
-bindkey '^[[118;9u' _paste_without_autopair
+#bindkey '^[[107;9u' scroll-and-clear-screen # Doesn't work in tmux
+# bindkey '^[[118;9u' _paste_without_autopair
 {{- end }}
 
 # bindkey '^y' yank
