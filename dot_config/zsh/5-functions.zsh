@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env zsh
 
 function bu() {
     printf 'Updating packages...\n'

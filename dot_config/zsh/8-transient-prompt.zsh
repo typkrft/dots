@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env zsh
 
 zle-line-init() {
   emulate -L zsh

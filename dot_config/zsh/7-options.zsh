@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env zsh
 
 # https://zsh.sourceforge.io/Doc/Release/Options.html
 
