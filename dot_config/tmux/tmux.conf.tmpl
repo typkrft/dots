@@ -11,10 +11,10 @@ set -g @tmux2k-bg-main '#{{- .dracula.hex.background -}}'
 set -g @tmux2k-blue '#{{- .dracula.hex.foreground -}}'
 
 # Sensible Settings
-set -s escape-time 5
+set -s escape-time 0
 set -g history-limit 50000
 set -g display-time 4000
-set -g status-interval 5
+set -g status-interval 0
 setw -g aggressive-resize on
 set -g focus-events on
 set -g mode-keys emacs
@@ -22,7 +22,7 @@ set -g status-keys emacs
 # set-option -g status-position top
 
 # Options
-set-option -sa terminal-overrides ",xterm*:Tc"
+# set-option -sa terminal-overrides ",xterm*:Tc"
 set -g mouse on
 
 # Yazi for Images 

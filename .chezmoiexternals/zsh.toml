@@ -1,8 +1,3 @@
-[".config/zsh/plugins/zsh-vi-mode.zsh"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/jeffreytse/zsh-vi-mode/master/zsh-vi-mode.zsh"
-    refreshPeriod = "168h"
-
 [".config/zsh/completions/chezmoi.zsh"]
     type = "file"
     url = "https://raw.githubusercontent.com/twpayne/chezmoi/master/completions/chezmoi.zsh"
@@ -30,11 +25,6 @@
     url = "https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh"
     refreshPeriod = "168h"
 
-[".config/zsh/plugins/autopair.zsh"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/hlissner/zsh-autopair/master/autopair.zsh"
-    refreshPeriod = "168h"
-
 [".config/zsh/plugins/navi.zsh"]
     type = "file"
     url = "https://raw.githubusercontent.com/denisidoro/navi/master/shell/navi.plugin.zsh"
@@ -48,12 +38,6 @@
 [".config/zsh/plugins/fzf-tab"]
     type = "git-repo"
     url = "https://github.com/Aloxaf/fzf-tab.git"
-    refreshPeriod = "168h"
-    stripComponents = 1
-
-[".config/zsh/plugins/zsh-autocomplete"]
-    type = "git-repo"
-    url = "https://github.com/marlonrichert/zsh-autocomplete.git"
     refreshPeriod = "168h"
     stripComponents = 1
 

@@ -39,3 +39,18 @@
 - [ ] [ZSH Plugin LLM](https://github.com/plutowang/zsh-ollama-command)
 - [ ] [ZSH Plugin](https://github.com/Freed-Wu/fzf-tab-source)
 - [ ] [look at poetry](https://www.youtube.com/watch?v=Ji2XDxmXSOM)
+
+
+examples of keybind actions in wezterm
+```lua
+action = wezterm.action.Multiple {
+    -- wezterm.action_callback(function(window,pane)
+    --     pane:send_text 'lines=$(tput lines); printf \'\\n%.0s\' {1..$lines}; printf "\\e[1;1H\\e[2J\"'
+    -- end),
+    -- wezterm.SendKey { key = 'raw:36' }
+}
+action = wezterm.action.Multiple {
+    wezterm.action.SendString 'lines=$(tput lines); printf \'\\n%.0s\' {1..$lines}; printf "\\e[1;1H\\e[2J\"',
+    wezterm.action.SendKey {key = '\r'}
+}
+```

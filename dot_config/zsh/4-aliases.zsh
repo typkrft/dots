@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env
 
 # Aliases
 alias tree='eza -T --icons=always --color=always --hyperlink'

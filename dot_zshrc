@@ -17,6 +17,13 @@ for file in "$HOME"/.config/zsh/*(.)zsh; do
     . "$file"
 done
 
+# Source the Plugins. $plugins sources from 0-plugin-inti.zsh
+# Not sure why I can't just source them as part of another file
+for file in $plugins; do
+    . "$file"
+done
+
+
 # Prompt: Place at the end of file
 starship_precmd_user_func="set_win_title"
 eval "$(starship init zsh)"

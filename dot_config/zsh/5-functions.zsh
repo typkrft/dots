@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env
 
 function bu() {
     printf 'Updating packages...\n'
@@ -181,3 +181,14 @@ function _end_of_prompt() {
     CURSOR=${#BUFFER}
 }
 zle -N _end_of_prompt
+
+function clear() {
+    lines=$(tput lines)
+    printf '\n%.0s' {1..$lines}
+    printf "\e[1;1H\e[2J"
+    zle reset-prompt
+}
+
+zle -N clear
+
+autoload edit-command-line; zle -N edit-command-line
