@@ -3,6 +3,7 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
+eval "$(zellij setup --generate-auto-start zsh)"
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # Completions 

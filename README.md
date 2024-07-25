@@ -6,8 +6,9 @@
 - [ ] build-fzf-tab-module after fzf installed
 
 # Configure 
-- [ ] Configure ZSH, 
-- [ ] [Tmux](https://www.youtube.com/watch?v=DzNmUNvnB04&embeds_referring_euri=https%3A%2F%2Fwww.google.com%2F&source_ve_path=MjM4NTE&feature=emb_title)
+- [ ] Zellij
+- [ ] Vault ssh and secrets
+- [ ] firefox theme websites from userchrome
 - [ ] Sketchybar
 - [ ] Yabai Rules
 - [ ] If headless install docker brewfile lazy docker 
