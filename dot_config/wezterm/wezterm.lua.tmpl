@@ -1,8 +1,9 @@
 local wezterm = require 'wezterm'
 local config = {
     -- Themes
-    font = wezterm.font 'VictorMono Nerd Font',
+    font = wezterm.font('VictorMono Nerd Font', { weight = "Medium" }),
     font_size = 18.0,
+    freetype_load_flags = 'NO_HINTING',
     hide_tab_bar_if_only_one_tab = true,
     color_scheme = "{{- .wezterm.theme -}}",
     tab_bar_at_bottom = true,
