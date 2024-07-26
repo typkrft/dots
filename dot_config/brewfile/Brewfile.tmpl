@@ -15,18 +15,18 @@ mas "Bitwarden", id: 1352778147
 {{ end }}
 {{ if eq .headless "false" }}
 
-cask "kitty", args: {zap: true}
-cask "logi-options-plus", args: {zap: true}, greedy: true
-cask "visual-studio-code", args: {zap: true}, greedy: true
 cask "alfred", args: {zap: true}, greedy: true
 cask "betterdiscord-installer", args: {zap: true}, greedy: true
+cask "chromium", args: {zap: true, no_quarantine: true}, greedy: true
 cask "discord", args: {zap: true}, greedy: true
 cask "espanso", args: {zap: true}, greedy: true
 cask "firefox@developer-edition", args: {zap: true}, greedy: true
-cask "chromium", args: {zap: true, no_quarantine: true}, greedy: true
-cask "font-victor-mono", args: {zap: true}, greedy: true
-cask "font-symbols-only-nerd-font", args: {zap: true}, greedy: true
 cask "font-iosevka", args: {zap: true}, greedy: true
+cask "font-symbols-only-nerd-font", args: {zap: true}, greedy: true
+cask "font-victor-mono", args: {zap: true}, greedy: true
+cask "logi-options-plus", args: {zap: true}, greedy: true
+cask "visual-studio-code", args: {zap: true}, greedy: true
+cask "wezterm", args: {zap: true}
 
 vscode "beardedbear.beardedicons"
 vscode "charliermarsh.ruff"
@@ -75,6 +75,7 @@ brew "fzf"
 brew "gh"
 brew "git"
 brew "glow"
+brew "gmailctl"
 brew "gnu-sed"
 brew "hashicorp/tap/vault"
 brew "jq"
