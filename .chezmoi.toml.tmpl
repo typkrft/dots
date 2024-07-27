@@ -1,6 +1,10 @@
 {{- $headless := promptStringOnce . "headless" "Is this a headless server" -}}
-{{- $atuin := promptStringOnce . "atuin" "Optional: Enter Atuin server Address" -}}
+{{- $atuin := promptStringOnce . "atuin" "Optional: Enter your Atuin server Address" -}}
+{{- $hcv_addr := promptStringOnce . "hcv_addr" "Optional: Enter your Hashicorp vault server Address" -}}
+{{- $bw_addr := promptStringOnce . "bw_addr" "Optional: Enter Bitwarden server Address" -}}
 
 [data]
     headless = {{ $headless | quote }}
     atuin = {{ $atuin | quote }}
+    hcv_addr = {{ $hcv_addr | quote }}
+    bw_addr = {{ $bw_addr | quote }}

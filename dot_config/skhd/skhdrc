@@ -36,7 +36,7 @@ rctrl + cmd - k : yabai -m window --stack north
 rctrl + cmd - l : yabai -m window --stack east
 
 # Unstack
-rctrl + cmd - backspace : yabai -m window --insert east || yabai -m window --insert south || yabai -m window --insert north || yabai -m window --insert west; yabai -m window --toggle float; yabai -m window --toggle float
+rctrl - backspace : yabai -m window --insert east || yabai -m window --insert south || yabai -m window --insert north || yabai -m window --insert west; yabai -m window --toggle float; yabai -m window --toggle float
 
 # Stack Select
 rctrl - 0x21 : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
@@ -74,4 +74,9 @@ rctrl + shift + alt - y : yabai --restart-service || yabai --start-service
 
 cmd - t [
     "finder" : skhd -k "cmd-n"
+    "mail" : skhd -k "cmd-n"
+]
+
+alt + ctrl - x [
+    "firefox developer edition" : skhd -k "alt-m"; skhd -k "alt-x"; skhd -k "alt-s"
 ]

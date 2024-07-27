@@ -2,6 +2,5 @@
 
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 export EDITOR="{{- .shell.env.editor -}}"
-ZELLIJ_AUTO_ATTACH=true
-# export TMUX_PLUGIN_MANAGER_PATH="${HOME}/.config/tm"
-
+export BW_SERVER="{{- .bw_addr -}}"
+export VAULT_ADDR="{{- .hcv_addr -}}"

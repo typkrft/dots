@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+if ! $(vault status > /dev/null); then
+    if [[ -z "${BW_SERVER}" ]]; then
+        vared -p 'Enter the address for your Bitwarden Server: ' -c BW_SERVER
+        bw config server $BW_SERVER > /dev/null
+    fi
+
+    if [[ -z "${VAULT_ADDR}" ]]; then
+        vared -p 'Enter the address for your Vault Server: ' -c VAULT_ADDR
+        export VAULT_ADDR=$VAULT_ADDR
+    fi
+
+    if ! $(bw login --check > /dev/null); then 
+        bw login
+    fi
+
+    vared -p 'Enter the name of HashiCorp Vault item in Bitwarden: ' -c hcv_item
+    vared -p 'Enter the number of keys required to unseal vault: ' -c num_keys
+    vared -p 'Enter the name of Keys in Bitwarden: ' -c key_name
+    keys=("${(@f)$(bw get item $hcv_item | jq -r ".fields | map(select(.name | contains (\"$key_name\")))[0:($num_keys)][]|.value")}")
+    for key in $keys; do
+        echo | vault operator unseal $key > /dev/null
+    done
+    vault status
+fi

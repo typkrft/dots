@@ -6,6 +6,9 @@ eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(zellij setup --generate-auto-start zsh)"
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
+# PATH
+export PATH="$HOME/.config/bin:$PATH"
+
 # Completions 
 # You may also need to forcibly rebuild zcompdump: rm -f ~/.zcompdump; compinit
 # If you receive “zsh compinit: insecure directories”. You may need to run this:: chmod -R go-w "$(brew --prefix)/share"
@@ -23,7 +26,6 @@ done
 for file in $plugins; do
     . "$file"
 done
-
 
 # Prompt: Place at the end of file
 starship_precmd_user_func="set_win_title"

@@ -186,7 +186,7 @@ function clear() {
     lines=$(tput lines)
     printf '\n%.0s' {1..$lines}
     printf "\e[1;1H\e[2J"
-    zle reset-prompt
+    zle && { zle reset-prompt; zle -R}
 }
 
 zle -N clear
