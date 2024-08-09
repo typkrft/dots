@@ -25,31 +25,42 @@ cask "font-iosevka", args: {zap: true}, greedy: true
 cask "font-symbols-only-nerd-font", args: {zap: true}, greedy: true
 cask "font-victor-mono", args: {zap: true}, greedy: true
 cask "logi-options-plus", args: {zap: true}, greedy: true
+cask "via", args {zap: true}, greedy: true
 cask "visual-studio-code", args: {zap: true}, greedy: true
 cask "wezterm", args: {zap: true}
 
+vscode "alefragnani.bookmarks"
 vscode "beardedbear.beardedicons"
 vscode "charliermarsh.ruff"
-vscode "ionutvmi.path-autocomplete"
+vscode "drcika.apc-extension"
 vscode "echevarriandre.theme-dracula-clean"
 vscode "esbenp.prettier-vscode"
+vscode "firefox-devtools.vscode-firefox-debug"
 vscode "formulahendry.code-runner"
+vscode "github.remotehub"
 vscode "gruntfuggly.todo-tree"
+vscode "hashicorp.terraform"
 vscode "ibm.output-colorizer"
-vscode "mechatroner.rainbow-csv"
+vscode "ionutvmi.path-autocomplete"
 vscode "janisdd.vscode-edit-csv"
+vscode "kdl-org.kdl"
 vscode "kamikillerto.vscode-colorize"
+vscode "mathematic.vscode-pdf"
+vscode "mechatroner.rainbow-csv"
+vscode "mousavian.ssh-config-syntax-highlighter"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-python.python"
+vscode "ms-vscode.live-server"
 vscode "ms-vscode.remote-explorer"
 vscode "ms-vscode-remote.remote-ssh"
 vscode "ms-vscode-remote.remote-ssh-edit"
 vscode "redhat.ansible"
 vscode "redhat.vscode-yaml"
+vscode "sharat.vscode-brewfile"
 vscode "sumneko.lua"
+vscode "tamasfe.even-better-toml"
 vscode "timonwong.shellcheck"
-vscode "mathematic.vscode-pdf"
-vscode "firefox-devtools.vscode-firefox-debug"
+vscode "wayou.vscode-todo-highlight"
 {{ end }}
 
 {{ if eq .headless "true" -}}
@@ -75,7 +86,7 @@ brew "fzf"
 brew "gh"
 brew "git"
 brew "glow"
-brew "gmailctl"
+brew "gmailctl", args: ["HEAD"]
 brew "gnu-sed"
 brew "hashicorp/tap/vault"
 brew "jq"
