@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+killall sketchybar &> /dev/null
+sketchybar &
 
 # Requires SIP to be partially disabled
 if csrutil status | grep -q 'disabled'; then
@@ -52,8 +54,5 @@ border_opts=(
     hidpi=off
 )
 
-
 killall borders &> /dev/null
 borders "${border_opts[@]}" &
-killall sketchybar &> /dev/null
-sketchybar &
