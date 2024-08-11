@@ -1,6 +1,7 @@
 tap "homebrew/services"
 tap "homebrew/command-not-found"
 tap "hashicorp/tap"
+
 {{ if eq .chezmoi.os "darwin" -}}
 tap "FelixKratz/formulae"
 
@@ -12,8 +13,6 @@ brew "skhd", args: ["HEAD"]
 brew "keith/formulae/reminders-cli"
 
 mas "Bitwarden", id: 1352778147
-{{ end }}
-{{ if eq .headless "false" }}
 
 cask "alfred", args: {zap: true}, greedy: true
 cask "betterdiscord-installer", args: {zap: true}, greedy: true
@@ -25,6 +24,7 @@ cask "font-iosevka", args: {zap: true}, greedy: true
 cask "font-symbols-only-nerd-font", args: {zap: true}, greedy: true
 cask "font-victor-mono", args: {zap: true}, greedy: true
 cask "logi-options-plus", args: {zap: true}, greedy: true
+cask "nikitabobko/tap/aerospace", args: {zap: true}, greedy: true
 cask "via", args: {zap: true}, greedy: true
 cask "visual-studio-code", args: {zap: true}, greedy: true
 cask "wezterm", args: {zap: true}
@@ -83,6 +83,7 @@ brew "eza"
 brew "fclones"
 brew "fd"
 brew "fzf"
+brew "gcc" if OS.linux?
 brew "gh"
 brew "git"
 brew "glow"

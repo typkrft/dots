@@ -1,10 +1,13 @@
 README.md
 {{- if ne .chezmoi.os "darwin" }}
-.config/yabai
-.config/skhd
+.config/aerospace
 .config/macos
+.config/sketchybar
+.config/skhd
+.config/yabai
 Library
 {{- end }}
 {{- if eq .headless "true" -}}
-.config/kitty
+.config/firefox
+.config/wezterm
 {{- end -}}
