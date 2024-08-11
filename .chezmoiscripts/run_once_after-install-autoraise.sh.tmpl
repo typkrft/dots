@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+{{ if eq .chezmoi.os "darwin" }}
+if [[ -d /Applications/AutoRaise.app ]]; then 
+    exit 
+fi
+curl -O 'https://raw.githubusercontent.com/sbmpost/AutoRaise/master/AutoRaise.dmg'
+hdiutil attach AutoRaise.dmg
+cp -R /Volumes/AutoRaise/AutoRaise.app /Applications
+hdiutil detach /Volumes/AutoRaise
+rm AutoRaise.dmg
+open /Applications/AutoRaise.app 
+{{ end }}
