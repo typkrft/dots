@@ -1,0 +1,100 @@
+# Macbooks don't have rctrl so, we can remap caps to rctrl.
+# Then we can use rctrl as a special key kind of like hyper. 
+# https://hidutil-generator.netlify.app/
+
+# M O D E S
+:: default : sketchybar --set mode label="N" background.color=0xff{{ .dracula.hex.green }}
+:: service @ : sketchybar --set mode label="S" background.color=0xff{{ .dracula.hex.red }}
+
+# E N T E R | E X I T  S E R V I C E
+service < escape ; default
+default < cmd - escape ; service
+
+# L A Y O U T S 
+rctrl - t : aerospace layout tiles horizontal vertical
+rctrl - s : aerospace layout accordion horizontal vertical
+rctrl - f : aerospace layout floating tiling
+
+# F O C U S
+rctrl - h : aerospace focus left
+rctrl - j : aerospace focus down
+rctrl - k : aerospace focus up
+rctrl - l : aerospace focus right
+
+# J O I N
+rctrl + alt - h : aerospace join-with left
+rctrl + alt - j : aerospace join-with down
+rctrl + alt - k : aerospace join-with up
+rctrl + alt - l : aerospace join-with right
+
+# M O V E 
+rctrl + cmd - h : aerospace move left
+rctrl + cmd - j : aerospace move down
+rctrl + cmd - k : aerospace move up
+rctrl + cmd - l : aerospace move right
+
+# R E S I Z E  +/-
+rctrl - 0x1B : aerospace resize smart -50
+rctrl - 0x18 : aerospace resize smart +50
+
+# W O R K S P A C E  F O C U S
+rctrl - 1 : aerospace workspace 1; ~/.config/bin/create_space
+rctrl - 2 : aerospace workspace 2; ~/.config/bin/create_space
+rctrl - 3 : aerospace workspace 3; ~/.config/bin/create_space
+rctrl - 4 : aerospace workspace 4; ~/.config/bin/create_space
+rctrl - 5 : aerospace workspace 5; ~/.config/bin/create_space
+rctrl - 6 : aerospace workspace 6; ~/.config/bin/create_space
+rctrl - 7 : aerospace workspace 7; ~/.config/bin/create_space
+rctrl - 8 : aerospace workspace 8; ~/.config/bin/create_space
+rctrl - 9 : aerospace workspace 9; ~/.config/bin/create_space
+ctrl - left : aerospace workspace --wrap-around prev
+ctrl - right : aerospace workspace --wrap-around next
+
+# W O R K S P A C E  M O V E 
+rctrl + cmd - 1 : aerospace move-node-to-workspace 1; ~/.config/bin/create_space 1
+rctrl + cmd - 2 : aerospace move-node-to-workspace 2; ~/.config/bin/create_space 2
+rctrl + cmd - 3 : aerospace move-node-to-workspace 3; ~/.config/bin/create_space 3
+rctrl + cmd - 4 : aerospace move-node-to-workspace 4; ~/.config/bin/create_space 4
+rctrl + cmd - 5 : aerospace move-node-to-workspace 5; ~/.config/bin/create_space 5
+rctrl + cmd - 6 : aerospace move-node-to-workspace 6; ~/.config/bin/create_space 6
+rctrl + cmd - 7 : aerospace move-node-to-workspace 7; ~/.config/bin/create_space 7
+rctrl + cmd - 8 : aerospace move-node-to-workspace 8; ~/.config/bin/create_space 8
+rctrl + cmd - 9 : aerospace move-node-to-workspace 9; ~/.config/bin/create_space 9
+
+# W O R K S P A C E  R E T U R N 
+rctrl - tab : aerospace workspace-back-and-forth; ~/.config/bin/create_space
+
+# W O R K S P A C E  ->  M O N I T O R 
+rctrl + cmd - tab : aerospace move-workspace-to-monitor --wrap-around next
+
+# Z O O M 
+rctrl - z : aerospace fullscreen
+
+# A R R O W  K E Y S 
+fn - h : skhd -k "left"
+fn - j : skhd -k "down"
+fn - k : skhd -k "up"
+fn - l : skhd -k "right"
+
+# P E R  A P P L I C A T I O N
+cmd - t [
+    "finder" : skhd -k 'cmd-n'
+    "mail" : skhd -k 'cmd-n'
+]
+
+rctrl - x [
+    "firefox developer edition" : skhd -k "alt-m"; skhd -k "alt-x"; skhd -k "alt-s"
+]
+
+# R E L O A D  A E R O S P A C E
+service < r : aerospace reload-config; skhd -k 'escape'
+
+# R E S E T  L A Y O U T
+service < l : aerospace flatten-workspace-tree; skhd -k 'escape'
+
+# R E S T A R T 
+service < cmd - r : ~/.config/bin/dkill AeroSpace; open -a AeroSpace; skhd --restart-service || skhd --start-service
+
+# A P P L Y  C H E Z M O I
+service < c : chezmoi apply -v --force
+

@@ -60,3 +60,5 @@ defaults write -g 'com.apple.trackpad.scaling' -float 2.400000
 defaults write .GlobalPreferences 'com.apple.sound.beep.sound' -string '/System/Library/Sounds/hero'
 defaults write com.apple.AdLib 'allowApplePersonalizedAdvertising' -bool NO
 defaults write com.apple.print.PrintingPrefs 'Quit When Finished' -bool YES
+defaults write -g NSWindowShouldDragOnGesture YES
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false

@@ -2,6 +2,8 @@
 
 function bu() {
     printf 'Updating packages...\n'
+    brew update
+    brew upgrade
     brew bundle install --file="${HOME}/.config/brewfile/Brewfile"
     printf 'Cleaning up...\n'
     brew autoremove

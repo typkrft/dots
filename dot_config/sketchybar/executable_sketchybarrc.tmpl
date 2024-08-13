@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+# B A R
+bar=(
+  height=40
+  position=top
+#   blur_radius=30
+#   sticky=off
+#   padding_left=10
+#   padding_right=10
+#   color=0x7f000000
+)
+
+sketchybar --bar "${bar[@]}"
+
+# D E F A U L T S
+default=(
+  padding_left=5
+  padding_right=5
+  icon.font="VictorMono Nerd Font:Bold:17.0"
+  label.font="VictorMono Nerd Font:Bold:17.0"
+  icon.color=0xffffffff
+  label.color=0xffffffff
+  icon.align=center
+  label.align=center
+  icon.y_offset=1
+  label.y_offset=1
+  icon.padding_left=5
+  icon.padding_right=5
+  label.padding_left=5
+  label.padding_right=5
+)
+sketchybar --default "${default[@]}"
+
+# M O D E
+mode=(
+  icon.drawing=off
+  background.color=0xff{{ .dracula.hex.green }}
+  background.corner_radius=5
+  background.height=20
+  label.padding_right=6 
+  label.color=0xff000000
+  label="N"
+)
+
+sketchybar --add item mode left \
+    --set mode "${mode[@]}" 
+
+# M A C O S  S P A C E S
+# space=(
+#   label.drawing=off
+#   icon.drawing=off
+#   background.color=0xff{{ .dracula.hex.green }}
+#   background.corner_radius=5
+#   background.height=20
+#   label.padding_right=6 
+#   label.color=0xff000000
+#   script="$PLUGIN_DIR/space.sh"
+# )
+
+# sketchybar --add item space.macos left \
+#     --set space.macos "${space[@]}" \
+#     --subscribe space.macos space_change
+
+# A E R O S P A C E
+sketchybar --add event aerospace_workspace_change
+for sid in $(aerospace list-workspaces --all); do
+    sketchybar --add item space.$sid left \
+        --subscribe space.$sid aerospace_workspace_change space_windows_change \
+        --set space.$sid \
+        background.color=0xff{{ .dracula.hex.purple }}  \
+        background.corner_radius=5 \
+        background.height=20 \
+        background.drawing=off \
+        icon.drawing=off \
+        label="$sid" \
+        label.padding_right=6 \
+        click_script="aerospace workspace $sid" \
+        script="$PLUGIN_DIR/aerospace.sh $sid"
+done
+
+# S E P E R A T O R
+sketchybar --add item chevron left \
+    --set chevron icon= label.drawing=off \
+    --add item front_app left \
+    --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+    --subscribe front_app front_app_switched
+
+# B A T T E R Y  V O L U M E  C L O C K
+sketchybar --add item clock right \
+    --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
+    --add item volume right \
+    --set volume script="$PLUGIN_DIR/volume.sh" \
+    --subscribe volume volume_change \
+    --add item battery right \
+    --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+    --subscribe battery system_woke power_source_change
+
+# I N V E S T M E N T S
+sketchybar --add item stocks right \
+  --set stocks update_freq=10 icon=VTI script="$PLUGIN_DIR/stocks.sh VTI"
+
+media=(
+  script="$PLUGIN_DIR/media.sh"
+  updates=on
+)
+
+sketchybar --add item media right \
+           --set media "${media[@]}" \
+           --subscribe media media_change
+
+sketchybar --update
