@@ -13,10 +13,10 @@ after-startup-command = [
     ''',
     '''exec-and-forget
         ~/.config/bin/dkill borders
-        borders active_color=0xff{{ .dracula.hex.purple }}
-        borders inactive_color=0xff{{ .dracula.hex.comment }}
-        borders width=8.0
-        borders hidpi=off
+        borders active_color=0xff{{ .dracula.hex.purple }} \
+            inactive_color=0xff{{ .dracula.hex.comment }}  \
+            width=4.0                                      \
+            hidpi=off
     '''
 ]
 
