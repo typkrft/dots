@@ -1,36 +1,62 @@
-#!/bin/bash
+#!/usr/bin/env python
 
-for pid in $(pgrep -f '/sketchybar/plugins/media.sh'); do 
-  if [[ "$pid" = "$$" ]]; then
-    continue
-  fi
-  kill -9 "$pid"
-done
+import subprocess
+import os
+import json
+from time import sleep
 
 
-STATE="$(echo "$INFO" | jq -r '.state')"
+def fmt_msg(msg, length):
+    return f"{msg:.{length - 1}}…" if len(msg) > length else msg
 
-if [ "$STATE" = "playing" ]; then
-  # MEDIA="$(echo "$INFO" | jq -r '.app + ": " + .title + " - " + .artist')"
-  MEDIA_INFO="$(echo "$INFO" | jq -r '.title + " - " + .artist')"
 
-  MEDIA_INFO_TRUNCATED="$MEDIA_INFO"
-  if [[ "${#MEDIA_INFO}" -gt 40 ]]; then 
-    MEDIA_INFO_TRUNCATED="${MEDIA_INFO:0:39}…"
-  fi
+def kill_dupes(proc_str):
+    current_process = os.getpid()
+    processes = subprocess.run(["pgrep", "-f", proc_str], capture_output=True, text=True)
+    for process in processes.stdout.splitlines():
+        if process != current_process:
+            subprocess.run(["kill", "-9", process])
 
-  sketchybar --set "$NAME" icon="󰲑" label="${MEDIA_INFO_TRUNCATED}" drawing=on
-  sleep 2
-  
-  RUNTIME=$(echo -e "${MEDIA_INFO}     ")
-  for (( i = 0; i < ("${#RUNTIME}" + 1); i++ )); do
-    MARQUEE="${RUNTIME:$i:${#RUNTIME}}${RUNTIME}"
-    TMP_STR="…${MARQUEE:0:(${#MEDIA_INFO_TRUNCATED} - 2)}…"
-    sketchybar --set "$NAME" icon="󰲑" label="${TMP_STR}" drawing=on
-    sleep 0.15
-  done
-  sketchybar --set "$NAME" icon="󰲑" label="${MEDIA_INFO_TRUNCATED}" drawing=on
 
-else
-  sketchybar --set "$NAME" drawing=off
-fi
+def get_media_info():
+    return json.loads(os.environ.get("INFO")) if os.environ.get("INFO") else exit(0)
+
+
+def main():
+    kill_dupes("/sketchybar/plugins/media.sh")
+    media_info = get_media_info()
+    if media_info["state"] not in ["playing", "paused"]:
+        exit(0)
+
+    now_playing = f"{media_info['title']} - {media_info['artist']}"
+    print(fmt_msg(now_playing, 30))
+    sleep(2)
+
+    marquee = f"{now_playing}     {now_playing}"
+    marquee_len = min(len(now_playing), 30)
+    # + 6 is 5 spaces + 1 more ittr to get back to beginning
+    for i in range(len(now_playing) + 7):
+        if i == 1:
+            display = f"…{marquee[i:]:.{marquee_len - 1}}"
+        elif i > 1 and i < len(now_playing) + 5:
+            display = f"…{marquee[i:]:.{marquee_len - 2}}…"
+        elif i == len(now_playing) + 5:
+            display = f"{marquee[i:]:.{marquee_len - 1}}…"
+        else:
+            display = fmt_msg(now_playing, 30)
+
+        subprocess.run(
+            [
+                "sketchybar",
+                "--set",
+                os.environ.get("NAME"),
+                'icon=󰲑',
+                "drawing=on",
+                f"label={display}",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        print(display, len(display))
+        sleep(0.15)
+main()

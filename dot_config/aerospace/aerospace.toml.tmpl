@@ -28,7 +28,6 @@ exec-on-workspace-change = [
 
 ]
 
-# Start AeroSpace at login
 start-at-login = true
 
 # Keep mouse centered in windowH
@@ -38,12 +37,8 @@ on-focus-changed = ['move-mouse window-lazy-center']
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
-# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
-# The 'accordion-padding' specifies the size of accordion padding
-# You can set 0 to disable the padding feature
 accordion-padding = 40
 
-# Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
 
 # Possible values: horizontal|vertical|auto
@@ -51,10 +46,6 @@ default-root-container-layout = 'tiles'
 #               tall monitor (anything higher than wide) gets vertical orientation
 default-root-container-orientation = 'auto'
 
-# Mouse follows focus when focused monitor changes
-# Drop it from your config, if you don't like this behavior
-# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
-# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [gaps]

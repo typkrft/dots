@@ -10,7 +10,6 @@
 - [ ] Vault ssh and secrets
 - [ ] firefox theme websites from userchrome
 - [ ] Sketchybar
-- [ ] Yabai Rules
 - [ ] If headless install docker brewfile lazy docker 
 - [ ] FF user.js
 - [ ] FF Extensions
@@ -20,6 +19,7 @@
 - [ ] [FZF Tab](https://github.com/Aloxaf/fzf-tab/wiki/Preview)
 
 # Fix
+- [ ] Sketchybar crashing occasionally, isolate via plugin
 - [ ] Right prompt min width or remove from starship
 - [ ] Code Icons should be next to git info 
 - [ ] Local IP only if ssh on right
