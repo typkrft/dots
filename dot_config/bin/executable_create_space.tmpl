@@ -1,43 +1,6 @@
 #!/usr/bin/env zsh
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 
-if [[ -z "$1" ]]; then 
-    1=$(aerospace list-workspaces --focused)
-fi
-
-# If space doesn't exist
-if ! sketchybar --query space."$1" &> /dev/null; then 
-    
-    # Get Position
-    position=""
-    for i in {1..9}; do 
-        if sketchybar --query space."$i" &> /dev/null; then 
-            position="$i"
-            continue
-        fi
-        break
-    done
-
-
-    # Create Space
-    sketchybar --add item space.$1 left             \
-    --subscribe space.$1 aerospace_workspace_change \
-    --set space.$1                                  \
-    background.color=0xff{{ .dracula.hex.purple }}  \
-    background.corner_radius=5                      \
-    background.height=20                            \
-    background.drawing=off                          \
-    icon.drawing=off                                \
-    label=$1                                        \
-    label.padding_right=6                           \
-    click_script="aerospace workspace $1"           \
-    script="$PLUGIN_DIR/aerospace.sh $1"            \
-    --move space.$1 before chevron                  \
-    --move space.$1 after space.$position
-
-    bash -c "$PLUGIN_DIR/aerospace.sh $1"
-fi
-
 # Remove Empty Spaces
 rm_spaces=()
 for i in {1..9}; do
@@ -58,3 +21,40 @@ done
 for space in $rm_spaces; do
     sketchybar --remove space.$space
 done
+
+if [[ -z "$1" ]]; then 
+    1=$(aerospace list-workspaces --focused)
+fi
+
+# If space doesn't exist
+if sketchybar --query space."$1" &> /dev/null; then 
+    exit 
+fi 
+    
+# Get Position
+position=""
+for i in {1..9}; do 
+    if sketchybar --query space."$i" &> /dev/null; then 
+        position="$i"
+        continue
+    fi
+    break
+done
+
+# Create Space
+sketchybar --add item space.$1 left                 \
+    --subscribe space.$1 aerospace_workspace_change \
+    --set space.$1                                  \
+    background.color=0xff{{ .dracula.hex.purple }}  \
+    background.corner_radius=5                      \
+    background.height=20                            \
+    background.drawing=off                          \
+    icon.drawing=off                                \
+    label=$1                                        \
+    label.padding_right=6                           \
+    click_script="aerospace workspace $1"           \
+    script="$PLUGIN_DIR/aerospace.sh $1"            \
+    --move space.$1 before chevron                  \
+    --move space.$1 after space.$position
+
+bash -c "$PLUGIN_DIR/aerospace.sh $1"

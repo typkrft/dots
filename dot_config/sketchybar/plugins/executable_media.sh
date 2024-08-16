@@ -7,6 +7,7 @@ for pid in $(pgrep -f '/sketchybar/plugins/media.sh'); do
   kill -9 "$pid"
 done
 
+
 STATE="$(echo "$INFO" | jq -r '.state')"
 
 if [ "$STATE" = "playing" ]; then

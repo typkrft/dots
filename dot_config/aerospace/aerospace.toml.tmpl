@@ -25,6 +25,7 @@ exec-on-workspace-change = [
     '/bin/bash', 
     '-c',
     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+
 ]
 
 # Start AeroSpace at login
@@ -69,4 +70,18 @@ if.app-id = 'org.mozilla.firefoxdeveloperedition'
 if.window-title-regex-substring = 'Picture-in-Picture'
 run = 'layout floating'
 
-[mode.main.binding]
+# [[on-window-detected]]
+# if.app-id = 'com.apple.reminders'
+# run = 'move-node-to-workspace 2'
+# 
+# [[on-window-detected]]
+# if.app-id = 'com.apple.mail'
+# run = 'move-node-to-workspace 2'
+# 
+# [[on-window-detected]]
+# if.app-id = 'com.apple.MobileSMS'
+# run = 'move-node-to-workspace 2'
+# 
+# [[on-window-detected]]
+# if.app-id = 'com.apple.Music'
+# run = ['move-node-to-workspace 3']
